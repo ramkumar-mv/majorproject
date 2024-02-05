@@ -254,11 +254,11 @@ import pickle
 from firebase.firebase import getWaterPrevWeek,getOilPrevWeek
 
 @api_view(["GET"])
-def wresult(request):
-    user_id = 'JmJFRr6q7sXrRG8oiJoXxUdiQwp1'
+def hresult(request):
+    user_id = 'AW1SqKbAdnPwZfgbTiAULxunIro1'
     water_prev_week_data = getWaterPrevWeek(user_id)
     total_water_consumption = sum(day.get("total", 0) for day in water_prev_week_data)
-    with open('water_pred_model.pkl', 'rb') as model_file:
+    with open('model_hum.pkl', 'rb') as model_file:
         loaded_model = pickle.load(model_file)
         
     input_data = [[total_water_consumption]]
@@ -267,12 +267,12 @@ def wresult(request):
     return JsonResponse(response_data)
 
 @api_view(["GET"])
-def gresult(request):
-    user_id = 'JmJFRr6q7sXrRG8oiJoXxUdiQwp1'
+def tresult(request):
+    user_id = 'AW1SqKbAdnPwZfgbTiAULxunIro1'
     oil_prev_week_data = getOilPrevWeek(user_id)
     total_oil_consumption = sum(day.get("total", 0) for day in oil_prev_week_data)
     
-    with open('linear_regression_model.pkl', 'rb') as model_file:
+    with open('model_temp.pkl', 'rb') as model_file:
         loaded_model = pickle.load(model_file)
     input_data = [[total_oil_consumption]]
     prediction = loaded_model.predict(input_data)
