@@ -320,7 +320,7 @@ def thresholdTemp(userId):
         loaded_model = pickle.load(model_file)
 
     # Calculate the predicted value for tomorrow
-    input_data = [22]  # Wrap weeklyTotal in a list to create a 2D array
+    input_data = [[22]]  # Wrap weeklyTotal in a list to create a 2D array
     total_temp_consumption = sum(day.get("total", 0) for day in data)
     prediction = loaded_model.predict(input_data)  # Pass the 2D array as input
     positive_prediction = [abs(value) for value in prediction]
