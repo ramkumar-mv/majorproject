@@ -375,7 +375,7 @@ def getTemp(userId: str, datestamp: str):
         temp = doc.to_dict()
         temp["date"] = datestamp
 
-    if "total" not in oil:
+    if "total" not in temp:
         temp["total"] = 0
 
     return temp
