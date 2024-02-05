@@ -4,6 +4,7 @@ from firebase.firebase import (
     getWaterPrevWeek,
     getOilPrevWeek,
     getHousehold,
+    getTempPrevWeek,
     insertRecommendation,
 )
 from jobscheduler.constants import diet, badDiet, meat, veggie
@@ -272,7 +273,7 @@ def thresholdHum(userId):
             + "kg."
         )'''
     # give them suggestions
-    with open('model_hum.pkl', 'rb') as model_file:
+    with open('linear_regression_model.pkl', 'rb') as model_file:
         loaded_model = pickle.load(model_file)
 
     # Calculate the predicted value for tomorrow
