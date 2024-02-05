@@ -283,3 +283,46 @@ def thresholdOil(userId):
     report += "We recommend using gas appliances a little less."
 
     return insertRecommendation(userId, report)
+
+def thresholdTemp(userId):
+    report = ""
+    # get week of data
+    data = getTempPrevWeek(userId)
+
+    # get total carbon
+    weeklyTotal = sum([d["total"] for d in data])
+
+    # check if more than avg canadian
+    '''if data > 637000:
+        report += (
+            f"WATER CONSUMPTION: You have crossed {int((weeklyTotal / 637000) * 100)}% of the weekly water consumption limit. Your weekly total is "
+            + str(int(weeklyTotal / 1000))
+            + "kg, which is close to the average Canadian's usage."
+        )
+    elif 509600 < weeklyTotal < 637000:
+        report += (
+            f"WATER CONSUMPTION: You have crossed {int((weeklyTotal / 637000) * 100)}% of the weekly water consumption limit. Your weekly total is "
+            + str(int(weeklyTotal / 1000))
+            + "kg, which is close to the average Canadian's usage."
+        )
+    else:
+        report += (
+            f"WATER CONSUMPTION: Congrats on producing less CO2 than the avg Canadian! The avg Canadian produces 637.00kg a week and you produced "
+            + str(round(weeklyTotal / 1000, 1))
+            + "kg, which is very good."'''
+        )
+    # give them suggestions
+    with open('model_temp.pkl', 'rb') as model_file:
+        loaded_model = pickle.load(model_file)
+
+    # Calculate the predicted value for tomorrow
+    input_data = [[weeklyTotal]]  # Wrap weeklyTotal in a list to create a 2D array
+    total_temp_consumption = sum(day.get("total", 0) for day in data)
+    prediction = loaded_model.predict(input_data)  # Pass the 2D array as input
+    positive_prediction = [abs(value) for value in prediction]
+    report += f"Today your value is {weeklyTotal/7} The predicted value for tomorrow is {positive_prediction[0]:.2f}."
+
+    # Give them suggestions
+    #report += "We recommend using water appliances a little less."
+
+    return insertRecommendation(userId, report)
