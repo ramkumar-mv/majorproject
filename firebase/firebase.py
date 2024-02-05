@@ -4,10 +4,10 @@ import random
 
 # Use a service account
 cred = credentials.Certificate(
-    "fir-db-35866-firebase-adminsdk-esi8j-b36f2d83f7.json"
+    "test-40a5d-firebase-adminsdk-c7pf4-b2c2f06868.json"
 )
 initialize_app(
-    cred, {"databaseURL": "https://fir-db-35866-default-rtdb.firebaseio.com"}
+    cred, {"databaseURL": "https://test-40a5d-default-rtdb.firebaseio.com"}
 )
 
 ####### LIGHTS ######
@@ -358,6 +358,59 @@ def getWaterPrevMonth(userId: str):
     water.append(getWater(userId, date.today().strftime("%Y-%m-%d")))
 
     return water
+
+####### temperature #######
+def getTemp(userId: str, datestamp: str):
+    database = firestore.client()
+    doc_ref = (
+        database.collection("userInfo")
+        .document(userId)
+        .collection("TempValues")
+        .document(datestamp)
+    )
+    doc = doc_ref.get()
+
+    temp = {}
+    if doc.exists:
+        temp = doc.to_dict()
+        temp["date"] = datestamp
+
+    if "total" not in oil:
+        temp["total"] = 0
+
+    return temp
+
+def getTempPrevDay(userId: str):
+    yesterday = date.today() - timedelta(days=1)
+
+    return getTemp(userId, yesterday.strftime("%Y-%m-%d"))
+    
+def getTempPrevWeek(userId: str):
+    temp = []
+
+    # get previous 6 days
+    for i in range(6, 0, -1):
+        day = date.today() - timedelta(days=i)
+        temp.append(getOil(userId, day.strftime("%Y-%m-%d")))
+
+    # get todays date
+    temp.append(getTemp(userId, date.today().strftime("%Y-%m-%d")))
+
+    return temp
+
+
+def getTempPrevMonth(userId: str):
+    temp = []
+
+    # get previous 6 days
+    for i in range(30, 0, -1):
+        day = date.today() - timedelta(days=i)
+        temp.append(getTemp(userId, day.strftime("%Y-%m-%d")))
+
+    # get todays date
+    temp.append(getOil(userId, date.today().strftime("%Y-%m-%d")))
+
+    return temp
 
 ####### OIL #######
 def getOil(userId: str, datestamp: str):
