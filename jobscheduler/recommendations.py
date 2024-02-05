@@ -309,8 +309,8 @@ def thresholdTemp(userId):
         report += (
             f"WATER CONSUMPTION: Congrats on producing less CO2 than the avg Canadian! The avg Canadian produces 637.00kg a week and you produced "
             + str(round(weeklyTotal / 1000, 1))
-            + "kg, which is very good."'''
-        )
+            + "kg, which is very good."
+        )'''
     # give them suggestions
     with open('model_temp.pkl', 'rb') as model_file:
         loaded_model = pickle.load(model_file)
