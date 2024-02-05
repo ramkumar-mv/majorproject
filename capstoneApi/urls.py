@@ -57,6 +57,6 @@ urlpatterns = [
         "resumeThermostat/", views.resume_schedule_thermostat, name="resumeThermostat"
     ),
     path("pauseThermostat/", views.pause_schedule_thermostat, name="pauseThermostat"),
-    path("gresult/", views.gresult, name="gresult"),
-    path("wresult/", views.wresult, name="wresult"),
+    path("hresult/", views.hresult, name="hresult"),
+    path("tresult/", views.tresult, name="tresult"),
 ]
