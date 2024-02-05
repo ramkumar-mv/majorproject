@@ -13,13 +13,16 @@ def executeRecommendations():
     # executing empty sample job
     for user in auth.list_users().iterate_all():
         print(user.uid)
-        thresholdDiet(user.uid)
-        thresholdWater(user.uid)
-        thresholdOil(user.uid)
-        thresholdHousehold(user.uid)
+        #thresholdDiet(user.uid)
+        #thresholdWater(user.uid)
+        #thresholdOil(user.uid)
+        #thresholdHousehold(user.uid)
+        thresholdTemp(user.uid)
+        thresholdHum(user.uid)
+        
 
 
-def thresholdDiet(userId):
+'''def thresholdDiet(userId):
     report = ""
     # get week of data
     data = getDietPrevWeek(userId)
@@ -170,7 +173,7 @@ def thresholdHousehold(userId):
     return insertRecommendation(userId, report)
 
 
-"""def thresholdWater(userId):
+def thresholdWater(userId):
     report = ""
 
     # Make an API request to get the prediction and water consumption data
@@ -196,7 +199,7 @@ def thresholdHousehold(userId):
         )
     report += "We recommend to use water appliances a little less."
 
-    return insertRecommendation(userId, report)"""
+    return insertRecommendation(userId, report)
 import pickle
 def thresholdWater(userId):
     report = ""
@@ -239,9 +242,9 @@ def thresholdWater(userId):
     # Give them suggestions
     report += "We recommend using water appliances a little less."
 
-    return insertRecommendation(userId, report)
+    return insertRecommendation(userId, report)'''
 
-def thresholdOil(userId):
+def thresholdHum(userId):
     report = ""
     # get week of data
     data = getOilPrevWeek(userId)
@@ -250,7 +253,7 @@ def thresholdOil(userId):
     weeklyTotal = sum([d["total"] for d in data])
 
     # check if more than avg canadian
-    if weeklyTotal > 840000:
+    '''if weeklyTotal > 840000:
         report += (
             "OIL CONSUMPTION: Your weekly total is "
             + str(int(weeklyTotal / 1000))
@@ -267,9 +270,9 @@ def thresholdOil(userId):
             "OIL CONSUMPTION: Congrats on producing less CO2 than the avg Canadian! The avg Canadian produces 840.00kg a week and you produced "
             + str(round(weeklyTotal / 1000, 1))
             + "kg."
-        )
+        )'''
     # give them suggestions
-    with open('linear_regression_model.pkl', 'rb') as model_file:
+    with open('model_hum.pkl', 'rb') as model_file:
         loaded_model = pickle.load(model_file)
 
     # Calculate the predicted value for tomorrow
@@ -277,10 +280,10 @@ def thresholdOil(userId):
     total_oil_consumption = sum(day.get("total", 0) for day in data)
     prediction = loaded_model.predict(input_data)
     positive_prediction = [abs(value) for value in prediction]
-    report += f"The predicted value for tomorrow is {positive_prediction[0]:.2f} kg."
+    report += f"Today your value is {weeklyTotal/7} The predicted value for tomorrow is {positive_prediction[0]:.2f}."
 
     # Give them suggestions
-    report += "We recommend using gas appliances a little less."
+    #report += "We recommend using gas appliances a little less."
 
     return insertRecommendation(userId, report)
 
