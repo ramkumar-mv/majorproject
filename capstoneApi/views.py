@@ -269,12 +269,12 @@ def hresult(request):
 @api_view(["GET"])
 def tresult(request):
     user_id = 'AW1SqKbAdnPwZfgbTiAULxunIro1'
-    oil_prev_week_data = getOilPrevWeek(user_id)
-    total_oil_consumption = sum(day.get("total", 0) for day in oil_prev_week_data)
+    temp_prev_week_data = getTempPrevWeek(user_id)
+    total_temp_consumption = sum(day.get("total", 0) for day in temp_prev_week_data)
     
     with open('model_temp.pkl', 'rb') as model_file:
         loaded_model = pickle.load(model_file)
-    input_data = [[total_oil_consumption]]
+    input_data = [[total_temp_consumption]]
     prediction = loaded_model.predict(input_data)
     positive_prediction = [abs(value) for value in prediction]
     
