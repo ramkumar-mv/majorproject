@@ -328,7 +328,7 @@ def thresholdTemp(userId):
 
     prediction1 = loaded_model.predict(input_data1)  # Pass the 2D array as input
     positive_prediction1 = [abs(value) for value in prediction1]
-    report += f"Today your temperature is {22} The predicted temperature for tomorrow is {positive_prediction[0]:.2f} and Today your humidity is {73} The predicted humidity for tomorrow is {positive_prediction1[0]:.2f} ."
+    report += f"Today your temperature is {22} The predicted temperature for tomorrow is {positive_prediction[0]:.2f} and Today your humidity is {73} The predicted humidity for tomorrow is {prediction1[0]:.2f} ."
 
     # Give them suggestions
     #report += "We recommend using water appliances a little less."
