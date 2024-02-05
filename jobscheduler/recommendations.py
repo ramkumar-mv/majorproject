@@ -321,10 +321,15 @@ def thresholdTemp(userId):
 
     # Calculate the predicted value for tomorrow
     input_data = [[22]]  # Wrap weeklyTotal in a list to create a 2D array
+    input_data1 = [[73]]
     total_temp_consumption = sum(day.get("total", 0) for day in data)
     prediction = loaded_model.predict(input_data)  # Pass the 2D array as input
     positive_prediction = [abs(value) for value in prediction]
-    report += f"Today your temperature is {input_data} The predicted temperature for tomorrow is {positive_prediction[0]:.2f}."
+
+    prediction1 = loaded_model.predict(input_data1)  # Pass the 2D array as input
+    positive_prediction1 = [abs(value) for value in prediction1]
+    report += f"Today your temperature is {22} The predicted temperature for tomorrow is {positive_prediction[0]:.2f} and
+                Today your humidity is {73} The predicted humidity for tomorrow is {positive_prediction1[0]:.2f} ."
 
     # Give them suggestions
     #report += "We recommend using water appliances a little less."
