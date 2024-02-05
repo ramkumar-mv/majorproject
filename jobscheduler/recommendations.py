@@ -244,7 +244,7 @@ def thresholdWater(userId):
     report += "We recommend using water appliances a little less."
 
     return insertRecommendation(userId, report)'''
-
+import pickle
 def thresholdHum(userId):
     report = ""
     # get week of data
