@@ -28,11 +28,9 @@ def getN(userId: str, datestamp: str):
     if doc.exists:
         nitrogen = doc.to_dict()
         nitrogen['date'] = datestamp
-    print(nitrogen['total'])
 
     if 'total' not in nitrogen:
         nitrogen['total'] = 0
-    print(nitrogen)
 
     return nitrogen
 
