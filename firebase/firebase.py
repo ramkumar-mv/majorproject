@@ -29,9 +29,9 @@ def getN(userId: str, datestamp: str):
         nitro["total"] = 0
     return nitro
         
-def getNPrevDay(userId: str):
-    yesterday = date.today() - timedelta(days=1)
-    return getN (userId, yesterday.strftime("%Y-%m-%d"))
+def getNToday(userId: str):
+    today = date.today() 
+    return getN (userId, today.strftime("%Y-%m-%d"))
 
 ####### phosphorus #######
 def getP (userId: str, datestamp: str):
