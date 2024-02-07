@@ -26,9 +26,9 @@ def thresholdNPK(userId):
     report = ""
 
     #t = date.today().strftime("%Y-%m-%d")
-    data = getNToday(userId)
-    '''weeklyTotal = sum([d["total"] for d in data])
-
+    data = getNPrevWeek(userId)
+    weeklyTotal = sum([d["total"] for d in data])
+    '''
     data1 = getPPrevWeek(userId)
     weeklyTotal1 = sum([d["total"] for d in data1])
 
