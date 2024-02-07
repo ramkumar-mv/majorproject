@@ -20,15 +20,18 @@ def getN(userId: str, datestamp: str):
         .collection('nitrogenTotals')
         .document(datestamp)
     )
+    print(datestamp)
     doc = doc_ref.get()
 
     nitrogen = {}
     if doc.exists:
         nitrogen = doc.to_dict()
         nitrogen['date'] = datestamp
+    print(nitrogen['total'])
 
     if 'total' not in nitrogen:
         nitrogen['total'] = 0
+    print(nitrogen)
 
     return nitrogen
 
