@@ -14,13 +14,14 @@ initialize_app(
 
 def getN(userId: str, datestamp: str):
     database = firestore.client()
+    a = date.today().strftime("%Y-%m-%d")
     doc_ref = (
         database.collection('userInfo')
         .document(userId)
         .collection('nitrogenTotals')
-        .document(datestamp)
+        .document(a)
     )
-    print(datestamp)
+    print(a)
     doc = doc_ref.get()
 
     nitrogen = {}
