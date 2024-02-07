@@ -23,7 +23,7 @@ def executeRecommendations():
     for user in auth.list_users().iterate_all():
         print(user.uid)
         thresholdNPK(user.uid)
-        thresholdHum(user.uid)
+        #thresholdHum(user.uid)
 
 
 def thresholdNPK(userId):
@@ -48,8 +48,13 @@ def thresholdNPK(userId):
         report += f"Your Nitrogen value is {N}, the difference between the ideal Nitrogen value for paddy is {a:.2f} "
         report += f"Your Phosphorous value is {P}, the difference between the ideal Phosphorous value for paddy is {b:.2f}"
         report += f"Your Potassium value is {K}, the difference between the ideal Potassium value for paddy is {c:.2f}"
+        report += f"The Temperature today is {temp} and the humidity today is {hum}"
         report += f"We recommend {prediction}"
     else:
+        report += f"Your Nitrogen value is {N}"
+        report += f"Your Phosphorous value is {P}"
+        report += f"Your Potassium value is {K}"
+        report += f"The Temperature today is {temp} and the humidity today is {hum}"
         report += f"Predicted crop:, {prediction} "
     
     '''
