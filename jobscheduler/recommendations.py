@@ -3,21 +3,14 @@ import pickle
 from datetime import datetime, timedelta, date
 from firebase_admin import auth
 from firebase.firebase import (
-    getN,
-    getP,
-    getK,
-    getTempN,
-    getHumN,
-    getpH,
-    getRain,
-    getPPrevDay,
-    getKPrevDay,
-    getTempNPrevDay,
-    getHumNPrevDay,
-    getpHPrevDay,
-    getRainPrevDay,
+    getNPrevWeek
+    getPPrevWeek,
+    getKPrevWeek,
+    getTempPrevWeek,
+    getHumPrevWeek,
+    getpHPrevWeek,
+    getRainPrevWeek,
     insertRecommendation,
-    getNPrevWeek,
 )
 
 def executeRecommendations():
@@ -30,34 +23,43 @@ def executeRecommendations():
 
 def thresholdNPK(userId):
     report = ""
-    #userId = "xR4Afu2Av5NS5HsA8R880zYfJgk1"
-    #previous_day_nitrogen = getNPrevDay(userId)
-    #report += f"Previous day's Nitrogen: {previous_day_nitrogen}"
 
     #t = date.today().strftime("%Y-%m-%d")
     data = getNPrevWeek(userId)
-
-    # get total carbon
     weeklyTotal = sum([d["total"] for d in data])
-    '''P = getP(userId, t)
-    K = getK(userId, t)
-    temp = getTempN(userId, t)
-    hum = getHumN(userId, t)
-    pH = getpH(userId, t)
-    rain = getRain(userId, t)'''
+
+    data1 = getPPrevWeek(userId)
+    weeklyTotal1 = sum([d["total"] for d in data1])
+
+    data2 = getKPrevWeek(userId)
+    weeklyTotal2 = sum([d["total"] for d in data2])
+
+    data3 = getTempPrevWeek(userId)
+    weeklyTotal3 = sum([d["total"] for d in data3])
+
+    data4 = getHumPrevWeek(userId)
+    weeklyTotal4 = sum([d["total"] for d in data4])
+
+    data5 = getpHPrevWeek(userId)
+    weeklyTotal5 = sum([d["total"] for d in data5])
+
+    data6 = getRainPrevWeek(userId)
+    weeklyTotal6 = sum([d["total"] for d in data6])
+
     a = weeklyTotal/7
-    report += f"Your Nitrogen value is {a}"
-    '''report += f"Your Phosphorous value is {P}"
-    report += f"Your Potassium value is {K}"
-    report += f"The Temperature today is {temp} and the humidity today is {hum}"
-    #report += f"Predicted crop: {prediction}'''
+    report += f"Your Nitrogen value is {data}"
+    report += f"Your Phosphorous value is {data1}"
+    report += f"Your Potassium value is {data2}"
+    report += f"The Temperature today is {data3} and the humidity today is {data4}"
+    report += f"The ph level is {data5} and the rainfall level is {data6}"
+    #report += f"Predicted crop: {prediction}
     '''
     # Check for NaN or None values in the data
     if any(v is None or np.isnan(v) for v in [N, P, K, temp, hum, pH, rain]):
         report += "Some input values are missing or NaN. Unable to make prediction."
-        return insertRecommendation(userId, report)
+        return insertRecommendation(userId, report)'''
 
-    data = np.array([[N, P, K, temp, hum, pH, rain]])
+    '''data = np.array([[92, 40, , temp, hum, pH, rain]])
 
     with open('capstoneApi/RandomForest.pkl', 'rb') as model_file:
         loaded_model = pickle.load(model_file)
@@ -67,16 +69,16 @@ def thresholdNPK(userId):
         a = N - 79.89
         b = P - 47.58
         c = K - 39.87
-        report += f"Your Nitrogen value is {N}, the difference between the ideal Nitrogen value for paddy is {a:.2f} "
-        report += f"Your Phosphorous value is {P}, the difference between the ideal Phosphorous value for paddy is {b:.2f}"
-        report += f"Your Potassium value is {K}, the difference between the ideal Potassium value for paddy is {c:.2f}"
-        report += f"The Temperature today is {temp} and the humidity today is {hum}"
+        #report += f"Your Nitrogen value is {N}, the difference between the ideal Nitrogen value for paddy is {a:.2f} "
+        #report += f"Your Phosphorous value is {P}, the difference between the ideal Phosphorous value for paddy is {b:.2f}"
+        #report += f"Your Potassium value is {K}, the difference between the ideal Potassium value for paddy is {c:.2f}"
+        #report += f"The Temperature today is {temp} and the humidity today is {hum}"
         report += f"We recommend {prediction}"
     else:
-        report += f"Your Nitrogen value is {N}"
-        report += f"Your Phosphorous value is {P}"
-        report += f"Your Potassium value is {K}"
-        report += f"The Temperature today is {temp} and the humidity today is {hum}"
+        #report += f"Your Nitrogen value is {N}"
+        #report += f"Your Phosphorous value is {P}"
+        #report += f"Your Potassium value is {K}"
+        #report += f"The Temperature today is {temp} and the humidity today is {hum}"
         report += f"Predicted crop: {prediction}"'''
 
     return insertRecommendation(userId, report)
