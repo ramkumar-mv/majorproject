@@ -10,7 +10,6 @@ from firebase.firebase import (
     getHumN,
     getpH,
     getRain,
-    getNToday,
     getPPrevDay,
     getKPrevDay,
     getTempNPrevDay,
@@ -19,6 +18,7 @@ from firebase.firebase import (
     getRainPrevDay,
     insertRecommendation,
     getTransportationPrevWeek,
+    getNPrevWeek,
 )
 
 def executeRecommendations():
