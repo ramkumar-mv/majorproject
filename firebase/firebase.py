@@ -12,36 +12,24 @@ initialize_app(
 
 ####### Nitrogen #######
 def getN(userId: str, datestamp: str):
-    nitro = []
-    database = firestore.client()
-
-    nitro_ref = database.collection("userInfo").document(userId).collection("nitrogenTotals")
-
-    query_nitro = nitro_ref.where("id", "==", datetime.now().strftime("%Y-%m-%d"))
-
-    docs_nitro = query_nitro.stream()
-    for doc in docs_nitro:
-        nitro.append(doc.to_dict())
-    return nitro
-        
-    '''try:
+    try:
         database = firestore.client()
         doc_ref = (
             database.collection("userInfo")
             .document(userId)
-            .collection(datestamp)
-            .document("Nitrogen")
+            .collection("nitrogenTotals")
+            .document(datestamp)
         )
         doc = doc_ref.get()
+
+    nitro = {}
+    if doc.exists:
+        nitro = doc.to_dict()
+        nitro["date"] = datestamp
         
-        if doc.exists:
-            nitro_data = doc.to_dict()
-            nitro = nitro_data.get("value")
-            return nitro
-        else:
-            return None
-    except Exception as e:
-        return None'''
+    if "total" not in oil:
+        nitro["total"] = 0
+    return nitro
         
 def getNPrevDay(userId: str):
     yesterday = date.today() - timedelta(days=1)
