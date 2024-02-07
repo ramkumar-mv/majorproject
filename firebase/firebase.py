@@ -10,7 +10,8 @@ initialize_app(
     cred, {"databaseURL": "https://test-40a5d-default-rtdb.firebaseio.com"}
 )
 
-####### Nitrogen #######
+##### Nitrogen #######
+
 def getN(userId: str, datestamp: str):
     database = firestore.client()
     doc_ref = (
@@ -20,18 +21,50 @@ def getN(userId: str, datestamp: str):
         .document(datestamp)
     )
     doc = doc_ref.get()
-    nitro = {}
+
+    nitrogen = {}
     if doc.exists:
-        nitro = doc.to_dict()
-        nitro["date"] = datestamp
-            
-    if "total" not in nitro:
-        nitro["total"] = 0
-    return nitro
-        
-def getNToday(userId: str):
-    today = date.today() 
-    return getN (userId, today.strftime("%Y-%m-%d"))
+        nitrogen = doc.to_dict()
+        nitrogen["date"] = datestamp
+
+    if "total" not in nitrogen:
+        nitrogen["total"] = 0
+
+    return nitrogen
+
+
+def getNPrevDay(userId: str):
+    yesterday = date.today() - timedelta(days=1)
+
+    return getN(userId, yesterday.strftime("%Y-%m-%d"))
+
+
+def getNPrevWeek(userId: str):
+    nitrogen = []
+
+    # get previous 6 days
+    for i in range(6, 0, -1):
+        day = date.today() - timedelta(days=i)
+        nitrogen.append(getN(userId, day.strftime("%Y-%m-%d")))
+
+    # get todays date
+    nitrogen.append(getN(userId, date.today().strftime("%Y-%m-%d")))
+
+    return nitrogen
+
+
+def getNPrevMonth(userId: str):
+    nitrogen = []
+
+    # get previous 6 days
+    for i in range(30, 0, -1):
+        day = date.today() - timedelta(days=i)
+        nitrogen.append(getN(userId, day.strftime("%Y-%m-%d")))
+
+    # get todays date
+    nitrogen.append(getN(userId, date.today().strftime("%Y-%m-%d")))
+
+    return nitrogen
 
 ####### phosphorus #######
 def getP (userId: str, datestamp: str):
@@ -225,62 +258,6 @@ def insertRecommendation(userId: str, data):
 
     return doc.to_dict()
 
-###### Transportation #######
-
-
-def getTransportation(userId: str, datestamp: str):
-    database = firestore.client()
-    doc_ref = (
-        database.collection("userInfo")
-        .document(userId)
-        .collection("transportTotals")
-        .document(datestamp)
-    )
-    doc = doc_ref.get()
-
-    transportation = {}
-    if doc.exists:
-        transportation = doc.to_dict()
-        transportation["date"] = datestamp
-
-    if "total" not in transportation:
-        transportation["total"] = 0
-
-    return transportation
-
-
-def getTransportationPrevDay(userId: str):
-    yesterday = date.today() - timedelta(days=1)
-
-    return getTransportation(userId, yesterday.strftime("%Y-%m-%d"))
-
-
-def getTransportationPrevWeek(userId: str):
-    transportation = []
-
-    # get previous 6 days
-    for i in range(6, 0, -1):
-        day = date.today() - timedelta(days=i)
-        transportation.append(getTransportation(userId, day.strftime("%Y-%m-%d")))
-
-    # get todays date
-    transportation.append(getTransportation(userId, date.today().strftime("%Y-%m-%d")))
-
-    return transportation
-
-
-def getTransportationPrevMonth(userId: str):
-    transportation = []
-
-    # get previous 6 days
-    for i in range(30, 0, -1):
-        day = date.today() - timedelta(days=i)
-        transportation.append(getTransportation(userId, day.strftime("%Y-%m-%d")))
-
-    # get todays date
-    transportation.append(getTransportation(userId, date.today().strftime("%Y-%m-%d")))
-
-    return transportation
 
 
 """def insertRecommendation(userId: str, data):
