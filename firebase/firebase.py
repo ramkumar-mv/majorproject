@@ -19,10 +19,20 @@ def getN(userId: str, datestamp: str):
         database.collection('userInfo')
         .document(userId)
         .collection('nitrogenTotals')
+        .document(datestamp)
+    )
+    doc = doc_ref.get()
+    print("doc1:",doc)
+
+    doc_ref1 = (
+        database.collection('userInfo')
+        .document(userId)
+        .collection('nitrogenTotals')
         .document(a)
     )
-    print(a)
-    doc = doc_ref.get()
+    doc1 = doc_ref1.get()
+    print("doc2:",doc1)
+    
 
     nitrogen = {}
     if doc.exists:
