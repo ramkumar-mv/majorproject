@@ -10,7 +10,7 @@ from firebase.firebase import (
     getHumN,
     getpH,
     getRain,
-    getNPrevDay,
+    getNToday,
     getPPrevDay,
     getKPrevDay,
     getTempNPrevDay,
@@ -34,8 +34,8 @@ def thresholdNPK(userId):
     #previous_day_nitrogen = getNPrevDay(userId)
     #report += f"Previous day's Nitrogen: {previous_day_nitrogen}"
 
-    t = date.today().strftime("%Y-%m-%d")
-    N = getN(userId, t)
+    #t = date.today().strftime("%Y-%m-%d")
+    N = getNToday(userId)
     '''P = getP(userId, t)
     K = getK(userId, t)
     temp = getTempN(userId, t)
