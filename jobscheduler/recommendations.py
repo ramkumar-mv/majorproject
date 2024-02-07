@@ -36,18 +36,18 @@ def thresholdNPK(userId):
 
     t = date.today().strftime("%Y-%m-%d")
     N = getN(userId, t)
-    P = getP(userId, t)
+    '''P = getP(userId, t)
     K = getK(userId, t)
     temp = getTempN(userId, t)
     hum = getHumN(userId, t)
     pH = getpH(userId, t)
-    rain = getRain(userId, t)
+    rain = getRain(userId, t)'''
 
     report += f"Your Nitrogen value is {N}"
-    report += f"Your Phosphorous value is {P}"
+    '''report += f"Your Phosphorous value is {P}"
     report += f"Your Potassium value is {K}"
     report += f"The Temperature today is {temp} and the humidity today is {hum}"
-    #report += f"Predicted crop: {prediction}
+    #report += f"Predicted crop: {prediction}'''
     '''
     # Check for NaN or None values in the data
     if any(v is None or np.isnan(v) for v in [N, P, K, temp, hum, pH, rain]):
