@@ -18,6 +18,7 @@ from firebase.firebase import (
     getpHPrevDay,
     getRainPrevDay,
     insertRecommendation,
+    getTransportationPrevWeek,
 )
 
 def executeRecommendations():
@@ -35,7 +36,7 @@ def thresholdNPK(userId):
     #report += f"Previous day's Nitrogen: {previous_day_nitrogen}"
 
     #t = date.today().strftime("%Y-%m-%d")
-    N = getNToday(userId)
+    N = getTransportationPrevWeek(userId)
     '''P = getP(userId, t)
     K = getK(userId, t)
     temp = getTempN(userId, t)
