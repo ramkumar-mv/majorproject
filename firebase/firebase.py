@@ -15,9 +15,9 @@ initialize_app(
 def getN(userId: str, datestamp: str):
     database = firestore.client()
     doc_ref = (
-        database.collection(u'userInfo')
+        database.collection('userInfo')
         .document(userId)
-        .collection(u'nitrogenTotals')
+        .collection('nitrogenTotals')
         .document(datestamp)
     )
     doc = doc_ref.get()
@@ -73,9 +73,9 @@ def getNPrevMonth(userId: str):
 def getP (userId: str, datestamp: str):
     database = firestore.client()
     doc_ref = (
-        database.collection(u'userInfo')
+        database.collection('userInfo')
         .document(userId)
-        .collection(u'phosTotals')
+        .collection('phosTotals')
         .document(datestamp)
     )
     doc = doc_ref.get()
@@ -117,9 +117,9 @@ def getPPrevMonth(userId: str):
 def getK (userId: str, datestamp: str):
     database = firestore.client()
     doc_ref = (
-        database.collection(u'userInfo')
+        database.collection('userInfo')
         .document(userId)
-        .collection(u'potassiumTotals')
+        .collection('potassiumTotals')
         .document(datestamp)
     )
     doc = doc_ref.get()
@@ -159,19 +159,19 @@ def getKPrevMonth(userId: str):
 def getTemp(userId: str, datestamp: str):
     database = firestore.client()
     doc_ref = (
-        database.collection("userInfo")
+        database.collection('userInfo')
         .document(userId)
-        .collection("temperatureTotals")
+        .collection('temperatureTotals')
         .document(datestamp)
     )
     doc = doc_ref.get()
     temp = {}
     if doc.exists:
         temp = doc.to_dict()
-        temp["date"] = datestamp
+        temp['date'] = datestamp
 
     if "total" not in temp:
-        temp["total"] = 0
+        temp['total'] = 0
 
     return temp
 
