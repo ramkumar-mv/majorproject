@@ -40,6 +40,12 @@ def thresholdNPK(userId):
     pH = getpH(userId, t)
     rain = getRain(userId, t)
 
+    report += f"Your Nitrogen value is {N}"
+    report += f"Your Phosphorous value is {P}"
+    report += f"Your Potassium value is {K}"
+    report += f"The Temperature today is {temp} and the humidity today is {hum}"
+    #report += f"Predicted crop: {prediction}
+    '''
     # Check for NaN or None values in the data
     if any(v is None or np.isnan(v) for v in [N, P, K, temp, hum, pH, rain]):
         report += "Some input values are missing or NaN. Unable to make prediction."
@@ -65,7 +71,7 @@ def thresholdNPK(userId):
         report += f"Your Phosphorous value is {P}"
         report += f"Your Potassium value is {K}"
         report += f"The Temperature today is {temp} and the humidity today is {hum}"
-        report += f"Predicted crop: {prediction}"
+        report += f"Predicted crop: {prediction}"'''
 
     return insertRecommendation(userId, report)
 
