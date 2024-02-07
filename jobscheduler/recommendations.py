@@ -29,7 +29,7 @@ def executeRecommendations():
 
 def thresholdNPK(userId):
     report = ""
-    # get week of data
+
     t= date.today().strftime("%Y-%m-%d")
     N = getN(userId,t)
     P = getP(userId,t)
@@ -37,8 +37,9 @@ def thresholdNPK(userId):
     temp = getTempN(userId,t)
     hum = getHumN(userId,t)
     pH = getpH(userId,t)
+    rain = getRain(userId,t)
 
-    data = np.array([[N, P, K, temperature, humidity, ph, rainfall]])
+    data = np.array([[N, P, K, tem, hum, ph, rain]])
 
     with open('capstoneApi/RandomForest.pkl', 'rb') as model_file:
         loaded_model = pickle.load(model_file)
