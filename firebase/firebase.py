@@ -17,7 +17,7 @@ def getN(userId: str, datestamp: str):
 
     nitro_ref = database.collection("userInfo").document(userId).collection("nitrogenTotals")
 
-    query_nitro = nitro_ref.where("Nitrogen")
+    query_nitro = nitro_ref.where(("id", "==", datetime.now().strftime("%Y-%m-%d")))
 
     docs_nitro = query_nitro.stream()
     for doc in docs_nitro:
