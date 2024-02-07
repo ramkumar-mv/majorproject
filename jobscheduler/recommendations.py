@@ -43,7 +43,7 @@ def thresholdNPK(userId):
     # Check for NaN or None values in the data
     if any(v is None or np.isnan(v) for v in [N, P, K, temp, hum, pH, rain]):
         report += "Some input values are missing or NaN. Unable to make prediction."
-        return report
+        return insertRecommendation(userId, report)
 
     data = np.array([[N, P, K, temp, hum, pH, rain]])
 
@@ -67,7 +67,7 @@ def thresholdNPK(userId):
         report += f"The Temperature today is {temp} and the humidity today is {hum}"
         report += f"Predicted crop: {prediction}"
 
-    return report
+    return insertRecommendation(userId, report)
 
     
     '''
@@ -89,8 +89,6 @@ def thresholdNPK(userId):
             + str(round(weeklyTotal / 1000, 1))
             + "kg, which is very good."
         )'''
-
-    return insertRecommendation(userId, report)
 
 '''import pickle
 def thresholdHum(userId):
