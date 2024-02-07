@@ -37,7 +37,7 @@ def thresholdTransport(userId):
     else:
         report = 'TRANSPORTATION: Congrats on producing less CO2 than the avg Canadian! The avg Canadian produces 95.89kg a week and you produced ' + \
             str(round(weeklyTotal/1000, 1)) + 'kg.'
-        return insertRecommendation(userId, 'transport', report)
+        return insertRecommendation(userId,report)
 
     # give them suggestions
     report += 'We recommend trying to achieve a short commute to work (<55km)! We also recommend reducing the number of leisure trips since this drives up your CO2 emissions significantly.'
