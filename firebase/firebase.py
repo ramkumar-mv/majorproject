@@ -11,7 +11,7 @@ initialize_app(
 )
 
 ####### Nitrogen #######
-def getN (userId: str, datestamp: str):
+def getN(userId: str, datestamp: str):
     database = firestore.client()
     doc_ref = (
         database.collection("userInfo")
@@ -21,11 +21,12 @@ def getN (userId: str, datestamp: str):
     )
     doc = doc_ref.get()
 
-    nitro = {}
     if doc.exists:
         nitro_data = doc.to_dict()
         nitro = nitro_data.get("Nitrogen")
-    return nitro
+        return nitro
+    else:
+        return None
 
 def getNPrevDay(userId: str):
     yesterday = date.today() - timedelta(days=1)
@@ -43,11 +44,12 @@ def getP (userId: str, datestamp: str):
     )
     doc = doc_ref.get()
 
-    phos = {}
     if doc.exists:
         phos_data = doc.to_dict()
         phos = phos_data.get("Phosphorus")
-    return phos
+        return phos
+    else:
+        return None
 
 def getPPrevDay(userId: str):
     yesterday = date.today() - timedelta(days=1)
@@ -65,11 +67,12 @@ def getK (userId: str, datestamp: str):
     )
     doc = doc_ref.get()
 
-    pot = {}
     if doc.exists:
         pot_data = doc.to_dict()
         pot = pot_data.get("Phosphorus")
-    return pot
+        return pot
+    else:
+        return None
 
 def getKPrevDay(userId: str):
     yesterday = date.today() - timedelta(days=1)
@@ -87,12 +90,12 @@ def getTempN(userId: str, datestamp: str):
     )
     doc = doc_ref.get()
 
-    temp1 = {}
     if doc.exists:
         temp_data1 = doc.to_dict()
         temp1 = temp_data1.get("Temperature")
-
-    return temp1
+        return temp1
+    else:
+        return None
 
 
 def getTempNPrevDay(userId: str):
@@ -111,12 +114,12 @@ def getHumN(userId: str, datestamp: str):
     )
     doc = doc_ref.get()
 
-    hum1 = {}
     if doc.exists:
         hum_data1 = doc.to_dict()
         hum1 = hum_data1.get("Humidity")
-
-    return hum1
+        return hum1
+    else:
+        return None
 
 def getHumNPrevDay(userId: str):
     yesterday = date.today() - timedelta(days=1)
@@ -134,12 +137,12 @@ def getpH(userId: str, datestamp: str):
     )
     doc = doc_ref.get()
 
-    pH = {}
     if doc.exists:
         pH_data = doc.to_dict()
         pH = pH_data.get("pH")
-
-    return pH
+        return pH
+    else:
+        return None
 
 def getpHPrevDay(userId: str):
     yesterday = date.today() - timedelta(days=1)
@@ -157,12 +160,12 @@ def getRain (userId: str, datestamp: str):
     )
     doc = doc_ref.get()
 
-    rain = {}
     if doc.exists:
         rain_data = doc.to_dict()
         rain = rain_data.get("pH")
-
-    return rain
+        return rain
+    else:
+        return None
 
 def getRainPrevDay(userId: str):
     yesterday = date.today() - timedelta(days=1)
@@ -180,12 +183,12 @@ def getTemp(userId: str, datestamp: str):
     )
     doc = doc_ref.get()
 
-    temp = {}
     if doc.exists:
         temp_data = doc.to_dict()
         temp = temp_data.get("Temperature")
-
-    return temp
+        return temp
+    else:
+        return None
 
 
 def getTempPrevDay(userId: str):
