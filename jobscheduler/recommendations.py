@@ -30,12 +30,13 @@ def executeRecommendations():
 def thresholdNPK(userId):
     report = ""
     # get week of data
-    N = getN(userId,date.today())
-    P = getP(userId,date.today())
-    K = getK(userId,date.today())
-    temp = getTempN(userId,date.today())
-    hum = getHumN(userId,date.today())
-    pH = getpH(userId,date.today())
+    t= date.today().strftime("%Y-%m-%d")
+    N = getN(userId,t)
+    P = getP(userId,t)
+    K = getK(userId,t)
+    temp = getTempN(userId,t)
+    hum = getHumN(userId,t)
+    pH = getpH(userId,t)
 
     data = np.array([[N, P, K, temperature, humidity, ph, rainfall]])
 
