@@ -15,9 +15,9 @@ initialize_app(
 def getN(userId: str, datestamp: str):
     database = firestore.client()
     doc_ref = (
-        database.collection("userInfo")
+        database.collection(u'userInfo')
         .document(userId)
-        .collection("nitrogenTotals")
+        .collection(u'nitrogenTotals')
         .document(datestamp)
     )
     doc = doc_ref.get()
@@ -25,10 +25,10 @@ def getN(userId: str, datestamp: str):
     nitrogen = {}
     if doc.exists:
         nitrogen = doc.to_dict()
-        nitrogen["date"] = datestamp
+        nitrogen['date'] = datestamp
 
-    if "total" not in nitrogen:
-        nitrogen["total"] = 0
+    if 'total' not in nitrogen:
+        nitrogen['total'] = 0
 
     return nitrogen
 
@@ -70,9 +70,9 @@ def getNPrevMonth(userId: str):
 def getP (userId: str, datestamp: str):
     database = firestore.client()
     doc_ref = (
-        database.collection("userInfo")
+        database.collection(u'userInfo')
         .document(userId)
-        .collection("phosTotals")
+        .collection(u'phosTotals')
         .document(datestamp)
     )
     doc = doc_ref.get()
@@ -80,10 +80,10 @@ def getP (userId: str, datestamp: str):
     phos = {}
     if doc.exists:
         phos = doc.to_dict()
-        phos["date"] = datestamp
+        phos['date'] = datestamp
 
-    if "total" not in phos:
-        phos["total"] = 0
+    if 'total' not in phos:
+        phos['total'] = 0
 
     return phos
 
@@ -114,19 +114,19 @@ def getPPrevMonth(userId: str):
 def getK (userId: str, datestamp: str):
     database = firestore.client()
     doc_ref = (
-        database.collection("userInfo")
+        database.collection(u'userInfo')
         .document(userId)
-        .collection("potassiumTotals")
+        .collection(u'potassiumTotals')
         .document(datestamp)
     )
     doc = doc_ref.get()
     potas = {}
     if doc.exists:
         potas = doc.to_dict()
-        potas["date"] = datestamp
+        potas['date'] = datestamp
 
-    if "total" not in potas:
-        potas["total"] = 0
+    if 'total' not in potas:
+        potas['total'] = 0
     return potas
     
 def getKPrevDay(userId: str):
