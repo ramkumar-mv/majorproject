@@ -11,7 +11,7 @@ def start():
     scheduler = BackgroundScheduler()
 
     # Configure the job trigger (e.g., every 5 minutes)
-    cron_trigger = CronTrigger(second='*/5')
+    cron_trigger = CronTrigger(minute='*/1')
     scheduler.add_job(executeRecommendations, cron_trigger, id="recommendations")
     scheduler.start()
     try:
