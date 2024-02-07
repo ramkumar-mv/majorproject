@@ -36,15 +36,18 @@ def thresholdNPK(userId):
     #report += f"Previous day's Nitrogen: {previous_day_nitrogen}"
 
     #t = date.today().strftime("%Y-%m-%d")
-    N = getTransportationPrevWeek(userId)
+    data = getNPrevWeek(userId)
+
+    # get total carbon
+    weeklyTotal = sum([d["total"] for d in data])
     '''P = getP(userId, t)
     K = getK(userId, t)
     temp = getTempN(userId, t)
     hum = getHumN(userId, t)
     pH = getpH(userId, t)
     rain = getRain(userId, t)'''
-
-    report += f"Your Nitrogen value is {N}"
+    a = weeklyTotal/7
+    report += f"Your Nitrogen value is {a}"
     '''report += f"Your Phosphorous value is {P}"
     report += f"Your Potassium value is {K}"
     report += f"The Temperature today is {temp} and the humidity today is {hum}"
