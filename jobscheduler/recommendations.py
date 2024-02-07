@@ -31,22 +31,28 @@ def executeRecommendations():
 def thresholdNPK(userId):
     report = ""
 
-    t= date.today().strftime("%Y-%m-%d")
-    N = getN(userId,t)
-    P = getP(userId,t)
-    K = getK(userId,t)
-    temp = getTempN(userId,t)
-    hum = getHumN(userId,t)
-    pH = getpH(userId,t)
-    rain = getRain(userId,t)
+    t = date.today().strftime("%Y-%m-%d")
+    N = getN(userId, t)
+    P = getP(userId, t)
+    K = getK(userId, t)
+    temp = getTempN(userId, t)
+    hum = getHumN(userId, t)
+    pH = getpH(userId, t)
+    rain = getRain(userId, t)
+
+    # Check for NaN or None values in the data
+    if any(v is None or np.isnan(v) for v in [N, P, K, temp, hum, pH, rain]):
+        report += "Some input values are missing or NaN. Unable to make prediction."
+        return report
 
     data = np.array([[N, P, K, temp, hum, pH, rain]])
 
     with open('capstoneApi/RandomForest.pkl', 'rb') as model_file:
         loaded_model = pickle.load(model_file)
+    
     prediction = loaded_model.predict(data)  # Pass the 2D array as input
     if prediction != 'rice':
-        a = N- 79.89
+        a = N - 79.89
         b = P - 47.58
         c = K - 39.87
         report += f"Your Nitrogen value is {N}, the difference between the ideal Nitrogen value for paddy is {a:.2f} "
@@ -59,7 +65,10 @@ def thresholdNPK(userId):
         report += f"Your Phosphorous value is {P}"
         report += f"Your Potassium value is {K}"
         report += f"The Temperature today is {temp} and the humidity today is {hum}"
-        report += f"Predicted crop:, {prediction} "
+        report += f"Predicted crop: {prediction}"
+
+    return report
+
     
     '''
     if data > 637000:
