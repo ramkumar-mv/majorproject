@@ -31,10 +31,10 @@ def executeRecommendations():
 def thresholdNPK(userId):
     report = ""
     #userId = "xR4Afu2Av5NS5HsA8R880zYfJgk1"
-    previous_day_nitrogen = getNPrevDay(userId)
-    report += f"Previous day's Nitrogen: {previous_day_nitrogen}"
+    #previous_day_nitrogen = getNPrevDay(userId)
+    #report += f"Previous day's Nitrogen: {previous_day_nitrogen}"
 
-    '''t = date.today().strftime("%Y-%m-%d")
+    t = date.today().strftime("%Y-%m-%d")
     N = getN(userId, t)
     P = getP(userId, t)
     K = getK(userId, t)
@@ -48,7 +48,7 @@ def thresholdNPK(userId):
     report += f"Your Potassium value is {K}"
     report += f"The Temperature today is {temp} and the humidity today is {hum}"
     #report += f"Predicted crop: {prediction}
-    
+    '''
     # Check for NaN or None values in the data
     if any(v is None or np.isnan(v) for v in [N, P, K, temp, hum, pH, rain]):
         report += "Some input values are missing or NaN. Unable to make prediction."
