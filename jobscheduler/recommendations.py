@@ -10,6 +10,7 @@ from firebase.firebase import (
     getHumPrevWeek,
     getpHPrevWeek,
     getRainPrevWeek,
+    getTransportationPrevWeek,
     insertRecommendation,
 )
 
@@ -17,10 +18,33 @@ def executeRecommendations():
     # executing empty sample job
     for user in auth.list_users().iterate_all():
         print(user.uid)
-        thresholdNPK(user.uid)
+        thresholdTransport(user.uid)
+        #thresholdNPK(user.uid)
         #thresholdHum(user.uid)
 
+def thresholdTransport(userId):
+    report = ''
+    # get week of data
+    data = getTransportationPrevWeek(userId)
 
+    # get total carbon
+    weeklyTotal = sum([d['total'] for d in data])
+
+    # check if more than avg canadian
+    if weeklyTotal > 95890:
+        report += 'TRANSPORTATION: Your weekly total is ' + str(int(weeklyTotal/1000)) + \
+            'kg which is above what the avg Canadian is supposed to produce. here are our suggestions for further tips!.\n'
+    else:
+        report = 'TRANSPORTATION: Congrats on producing less CO2 than the avg Canadian! The avg Canadian produces 95.89kg a week and you produced ' + \
+            str(round(weeklyTotal/1000, 1)) + 'kg.'
+        return insertRecommendation(userId, 'transport', report)
+
+    # give them suggestions
+    report += 'We recommend trying to achieve a short commute to work (<55km)! We also recommend reducing the number of leisure trips since this drives up your CO2 emissions significantly.'
+
+    return insertRecommendation(userId, 'transport', report)
+
+'''
 def thresholdNPK(userId):
     report = ""
 
@@ -53,7 +77,7 @@ def thresholdNPK(userId):
     report += f"The Temperature today is {data3} and the humidity today is {data4}"
     report += f"The ph level is {data5} and the rainfall level is {data6}"
     #report += f"Predicted crop: {prediction}
-    '''
+    
     # Check for NaN or None values in the data
     if any(v is None or np.isnan(v) for v in [N, P, K, temp, hum, pH, rain]):
         report += "Some input values are missing or NaN. Unable to make prediction."
@@ -79,12 +103,12 @@ def thresholdNPK(userId):
         #report += f"Your Phosphorous value is {P}"
         #report += f"Your Potassium value is {K}"
         #report += f"The Temperature today is {temp} and the humidity today is {hum}"
-        report += f"Predicted crop: {prediction}"'''
+        report += f"Predicted crop: {prediction}"
 
     return insertRecommendation(userId, report)
 
     
-    '''
+    
     if data > 637000:
         report += (
             f"WATER CONSUMPTION: You have crossed {int((weeklyTotal / 637000) * 100)}% of the weekly water consumption limit. Your weekly total is "
