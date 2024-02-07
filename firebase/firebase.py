@@ -12,7 +12,19 @@ initialize_app(
 
 ####### Nitrogen #######
 def getN(userId: str, datestamp: str):
-    try:
+    nitro = []
+    database = firestore.client()
+
+    nitro_ref = database.collection("userInfo").document(userId).collection("nitrogenTotals")
+
+    query_nitro = nitro_ref.where("Nitrogen")
+
+    docs_nitro = query_nitro.stream()
+    for doc in docs_nitro:
+        nitro.append(doc.to_dict())
+    return nitro
+        
+    '''try:
         database = firestore.client()
         doc_ref = (
             database.collection("userInfo")
@@ -29,7 +41,7 @@ def getN(userId: str, datestamp: str):
         else:
             return None
     except Exception as e:
-        return None
+        return None'''
         
 def getNPrevDay(userId: str):
     yesterday = date.today() - timedelta(days=1)
