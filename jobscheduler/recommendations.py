@@ -1,4 +1,5 @@
 import numpy as np
+from datetime import datetime, timedelta, date
 from firebase_admin import auth
 from firebase.firebase import (
     getN,
@@ -29,12 +30,12 @@ def executeRecommendations():
 def thresholdNPK(userId):
     report = ""
     # get week of data
-    N = getN(userId)
-    P = getP(userId)
-    K = getK(userId)
-    temp = getTempN(userId)
-    hum = getHumN(userId)
-    pH = getpH(userId)
+    N = getN(userId,date.today())
+    P = getP(userId,date.today())
+    K = getK(userId,date.today())
+    temp = getTempN(userId,date.today())
+    hum = getHumN(userId,date.today())
+    pH = getpH(userId,date.today())
 
     data = np.array([[N, P, K, temperature, humidity, ph, rainfall]])
 
