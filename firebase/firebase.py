@@ -25,7 +25,7 @@ def getN(userId: str, datestamp: str):
         nitro = doc.to_dict()
         nitro["date"] = datestamp
             
-    if "total" not in oil:
+    if "total" not in nitro:
         nitro["total"] = 0
     return nitro
         
