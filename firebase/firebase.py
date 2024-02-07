@@ -146,6 +146,29 @@ def getpHPrevDay(userId: str):
 
     return getpH(userId, yesterday.strftime("%Y-%m-%d"))
 
+####### rainfall #######
+def getRain (userId: str, datestamp: str):
+    database = firestore.client()
+    doc_ref = (
+        database.collection("userInfo")
+        .document(userId)
+        .collection("nutrientsTotals")
+        .document(datestamp)
+    )
+    doc = doc_ref.get()
+
+    rain = None
+    if doc.exists:
+        rain_data = doc.to_dict()
+        rain = rain_data.get("pH")
+
+    return rain
+
+def getRainPrevDay(userId: str):
+    yesterday = date.today() - timedelta(days=1)
+
+    return getpH(userId, yesterday.strftime("%Y-%m-%d"))
+
 ####### temperature #######
 def getTemp(userId: str, datestamp: str):
     database = firestore.client()
