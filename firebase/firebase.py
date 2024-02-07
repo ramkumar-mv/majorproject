@@ -32,6 +32,9 @@ def getN(userId: str, datestamp: str):
 
     return nitrogen
 
+def getNToday(userId: str):
+    return getN(userId, date.today().strftime("%Y-%m-%d"))
+
 
 def getNPrevDay(userId: str):
     yesterday = date.today() - timedelta(days=1)
