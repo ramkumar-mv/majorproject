@@ -48,7 +48,7 @@ def thresholdNPK(userId):
     weeklyTotal6 = sum([d["total"] for d in data6])
 
     a = weeklyTotal/7'''
-    report += f"Your Nitrogen value is {weeklyTotal1}"
+    report += f"Your Nitrogen value is {weeklyTotal}"
     '''report += f"Your Phosphorous value is {data1}"
     report += f"Your Potassium value is {data2}"
     report += f"The Temperature today is {data3} and the humidity today is {data4}"
