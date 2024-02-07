@@ -17,7 +17,6 @@ from firebase.firebase import (
     getpHPrevDay,
     getRainPrevDay,
     insertRecommendation,
-    getTransportationPrevWeek,
     getNPrevWeek,
 )
 
