@@ -4,10 +4,10 @@ import random
 
 # Use a service account
 cred = credentials.Certificate(
-    "test-40a5d-firebase-adminsdk-c7pf4-b2c2f06868.json"
+    "majorproject-60694-firebase-adminsdk-ntugr-075c8c8205.json"
 )
 initialize_app(
-    cred, {"databaseURL": "https://test-40a5d-default-rtdb.firebaseio.com"}
+    cred, {"databaseURL": "https://majorproject-60694-default-rtdb.firebaseio.com"}
 )
 
 ##### Nitrogen #######
