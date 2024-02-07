@@ -19,7 +19,7 @@ def getN(userId: str, datestamp: str):
         database.collection('userInfo')
         .document(userId)
         .collection('nitrogenTotals')
-        .document(datestamp)
+        .document("2024-02-7")
     )
     doc = doc_ref.get()
     print("doc1:",doc)
@@ -41,7 +41,7 @@ def getN(userId: str, datestamp: str):
 
     if 'total' not in nitrogen:
         nitrogen['total'] = 0
-
+    print(nitrogen)
     return nitrogen
 
 def getNToday(userId: str):
