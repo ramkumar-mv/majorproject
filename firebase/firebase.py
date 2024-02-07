@@ -72,22 +72,43 @@ def getP (userId: str, datestamp: str):
     doc_ref = (
         database.collection("userInfo")
         .document(userId)
-        .collection(datestamp)
-        .document("Phosphorus")
+        .collection("phosTotals")
+        .document(datestamp)
     )
     doc = doc_ref.get()
 
+    phos = {}
     if doc.exists:
-        phos_data = doc.to_dict()
-        phos = phos_data.get("value")
-        return phos
-    else:
-        return None
+        phos = doc.to_dict()
+        phos["date"] = datestamp
+
+    if "total" not in phos:
+        phos["total"] = 0
+
+    return phos
 
 def getPPrevDay(userId: str):
     yesterday = date.today() - timedelta(days=1)
-
     return getP (userId, yesterday.strftime("%Y-%m-%d"))
+    
+def getPPrevWeek(userId: str):
+    phos = []
+    # get previous 6 days
+    for i in range(6, 0, -1):
+        day = date.today() - timedelta(days=i)
+        phos.append(getP(userId, day.strftime("%Y-%m-%d")))
+    # get todays date
+    phos.append(getP(userId, date.today().strftime("%Y-%m-%d")))
+    return phos
+
+def getPPrevMonth(userId: str):
+    phos = []
+    for i in range(30, 0, -1):
+        day = date.today() - timedelta(days=i)
+        phos.append(getP(userId, day.strftime("%Y-%m-%d")))
+    # get todays date
+    phos.append(getP(userId, date.today().strftime("%Y-%m-%d")))
+    return phos
 
 ####### Potassium #######
 def getK (userId: str, datestamp: str):
@@ -95,115 +116,41 @@ def getK (userId: str, datestamp: str):
     doc_ref = (
         database.collection("userInfo")
         .document(userId)
-        .collection(datestamp)
-        .document("Potassium")
+        .collection("potassiumTotals")
+        .document(datestamp)
     )
     doc = doc_ref.get()
-
+    potas = {}
     if doc.exists:
-        pot_data = doc.to_dict()
-        pot = pot_data.get("value")
-        return pot
-    else:
-        return None
+        potas = doc.to_dict()
+        potas["date"] = datestamp
 
+    if "total" not in potas:
+        potas["total"] = 0
+    return potas
+    
 def getKPrevDay(userId: str):
     yesterday = date.today() - timedelta(days=1)
-
     return getK (userId, yesterday.strftime("%Y-%m-%d"))
 
-####### temperature #######
-def getTempN(userId: str, datestamp: str):
-    database = firestore.client()
-    doc_ref = (
-        database.collection("userInfo")
-        .document(userId)
-        .collection(datestamp)
-        .document("Temperature")
-    )
-    doc = doc_ref.get()
+def getKPrevWeek(userId: str):
+    potas = []
+    # get previous 6 days
+    for i in range(6, 0, -1):
+        day = date.today() - timedelta(days=i)
+        potas.append(getP(userId, day.strftime("%Y-%m-%d")))
+    # get todays date
+    potas.append(getP(userId, date.today().strftime("%Y-%m-%d")))
+    return potas
 
-    if doc.exists:
-        temp_data1 = doc.to_dict()
-        temp1 = temp_data1.get("value")
-        return temp1
-    else:
-        return None
-
-
-def getTempNPrevDay(userId: str):
-    yesterday = date.today() - timedelta(days=1)
-
-    return getTempN(userId, yesterday.strftime("%Y-%m-%d"))
-
-####### Humidity #######
-def getHumN(userId: str, datestamp: str):
-    database = firestore.client()
-    doc_ref = (
-        database.collection("userInfo")
-        .document(userId)
-        .collection(datestamp)
-        .document("Humidity")
-    )
-    doc = doc_ref.get()
-
-    if doc.exists:
-        hum_data1 = doc.to_dict()
-        hum1 = hum_data1.get("Humidity")
-        return hum1
-    else:
-        return None
-
-def getHumNPrevDay(userId: str):
-    yesterday = date.today() - timedelta(days=1)
-
-    return getHumN(userId, yesterday.strftime("%Y-%m-%d"))
-
-####### pH #######
-def getpH(userId: str, datestamp: str):
-    database = firestore.client()
-    doc_ref = (
-        database.collection("userInfo")
-        .document(userId)
-        .collection(datestamp)
-        .document("pH")
-    )
-    doc = doc_ref.get()
-
-    if doc.exists:
-        pH_data = doc.to_dict()
-        pH = pH_data.get("value")
-        return pH
-    else:
-        return None
-
-def getpHPrevDay(userId: str):
-    yesterday = date.today() - timedelta(days=1)
-
-    return getpH(userId, yesterday.strftime("%Y-%m-%d"))
-
-####### rainfall #######
-def getRain (userId: str, datestamp: str):
-    database = firestore.client()
-    doc_ref = (
-        database.collection("userInfo")
-        .document(userId)
-        .collection(datestamp)
-        .document("Rainfall")
-    )
-    doc = doc_ref.get()
-
-    if doc.exists:
-        rain_data = doc.to_dict()
-        rain = rain_data.get("value")
-        return rain
-    else:
-        return None
-
-def getRainPrevDay(userId: str):
-    yesterday = date.today() - timedelta(days=1)
-
-    return getpH(userId, yesterday.strftime("%Y-%m-%d"))
+def getKPrevMonth(userId: str):
+    potas = []
+    for i in range(30, 0, -1):
+        day = date.today() - timedelta(days=i)
+        potas.append(getP(userId, day.strftime("%Y-%m-%d")))
+    # get todays date
+    potas.append(getP(userId, date.today().strftime("%Y-%m-%d")))
+    return potas
 
 ####### temperature #######
 def getTemp(userId: str, datestamp: str):
@@ -211,24 +158,188 @@ def getTemp(userId: str, datestamp: str):
     doc_ref = (
         database.collection("userInfo")
         .document(userId)
-        .collection("TempValues")
+        .collection("temperatureTotals")
         .document(datestamp)
     )
     doc = doc_ref.get()
-
+    temp = {}
     if doc.exists:
-        temp_data = doc.to_dict()
-        temp = temp_data.get("Temperature")
-        return temp
-    else:
-        return None
+        temp = doc.to_dict()
+        temp["date"] = datestamp
+
+    if "total" not in temp:
+        temp["total"] = 0
+
+    return temp
 
 
 def getTempPrevDay(userId: str):
     yesterday = date.today() - timedelta(days=1)
 
     return getTemp(userId, yesterday.strftime("%Y-%m-%d"))
- 
+
+def getTempPrevWeek(userId: str):
+    temp = []
+
+    # get previous 6 days
+    for i in range(6, 0, -1):
+        day = date.today() - timedelta(days=i)
+        temp.append(getTemp(userId, day.strftime("%Y-%m-%d")))
+
+    # get todays date
+    temp.append(getTemp(userId, date.today().strftime("%Y-%m-%d")))
+
+    return temp
+
+def getTempPrevMonth(userId: str):
+    temp = []
+    for i in range(30, 0, -1):
+        day = date.today() - timedelta(days=i)
+        temp.append(getTemp(userId, day.strftime("%Y-%m-%d")))
+    # get todays date
+    temp.append(getTemp(userId, date.today().strftime("%Y-%m-%d")))
+    return temp
+
+####### Humidity #######
+def getHum(userId: str, datestamp: str):
+    database = firestore.client()
+    doc_ref = (
+        database.collection("userInfo")
+        .document(userId)
+        .collection("humTotals")
+        .document(datestamp)
+    )
+    doc = doc_ref.get()
+
+    hum = {}
+    if doc.exists:
+        hum = doc.to_dict()
+        hum["date"] = datestamp
+
+    if "total" not in hum:
+        hum["total"] = 0
+
+    return hum
+
+def getHumPrevDay(userId: str):
+    yesterday = date.today() - timedelta(days=1)
+
+    return getHum(userId, yesterday.strftime("%Y-%m-%d"))
+
+def getHumPrevWeek(userId: str):
+    hum = []
+    # get previous 6 days
+    for i in range(6, 0, -1):
+        day = date.today() - timedelta(days=i)
+        hum.append(getHum(userId, day.strftime("%Y-%m-%d")))
+    # get todays date
+    hum.append(getHum(userId, date.today().strftime("%Y-%m-%d")))
+    return hum
+
+def getHumPrevMonth(userId: str):
+    hum = []
+    for i in range(30, 0, -1):
+        day = date.today() - timedelta(days=i)
+        hum.append(getHum(userId, day.strftime("%Y-%m-%d")))
+    # get todays date
+    hum.append(getHum(userId, date.today().strftime("%Y-%m-%d")))
+    return hum
+
+####### pH #######
+def getpH(userId: str, datestamp: str):
+    database = firestore.client()
+    doc_ref = (
+        database.collection("userInfo")
+        .document(userId)
+        .collection("pHTotals")
+        .document(datestamp)
+    )
+    doc = doc_ref.get()
+    pH = {}
+    if doc.exists:
+        pH = doc.to_dict()
+        pH["date"] = datestamp
+
+    if "total" not in pH:
+        pH["total"] = 0
+
+    return pH
+
+def getpHPrevDay(userId: str):
+    yesterday = date.today() - timedelta(days=1)
+
+    return getpH(userId, yesterday.strftime("%Y-%m-%d"))
+
+def getpHPrevWeek(userId: str):
+    pH = []
+
+    # get previous 6 days
+    for i in range(6, 0, -1):
+        day = date.today() - timedelta(days=i)
+        pH.append(getpH(userId, day.strftime("%Y-%m-%d")))
+    # get todays date
+    pH.append(getpH(userId, date.today().strftime("%Y-%m-%d")))
+    return pH
+
+
+def getpHPrevMonth(userId: str):
+    pH = []
+    for i in range(30, 0, -1):
+        day = date.today() - timedelta(days=i)
+        pH.append(getpH(userId, day.strftime("%Y-%m-%d")))
+
+    # get todays date
+    pH.append(getpH(userId, date.today().strftime("%Y-%m-%d")))
+    return pH
+
+####### rainfall #######
+def getRain (userId: str, datestamp: str):
+    database = firestore.client()
+    doc_ref = (
+        database.collection("userInfo")
+        .document(userId)
+        .collection("rainTotals")
+        .document(datestamp)
+    )
+
+    doc = doc_ref.get()
+
+    rain = {}
+    if doc.exists:
+        rain = doc.to_dict()
+        rain["date"] = datestamp
+
+    if "total" not in rain:
+        rain["total"] = 0
+
+    return rain
+def getRainPrevDay(userId: str):
+    yesterday = date.today() - timedelta(days=1)
+
+    return getRain(userId, yesterday.strftime("%Y-%m-%d"))
+
+def getRainPrevWeek(userId: str):
+    rain = []
+
+    # get previous 6 days
+    for i in range(6, 0, -1):
+        day = date.today() - timedelta(days=i)
+        rain.append(getRain(userId, day.strftime("%Y-%m-%d")))
+
+    # get todays date
+    rain.append(getRain(userId, date.today().strftime("%Y-%m-%d")))
+
+    return rain
+
+
+def getRainPrevMonth(userId: str):
+    rain = []
+    for i in range(30, 0, -1):
+        day = date.today() - timedelta(days=i)
+        rain.append(getRain(userId, day.strftime("%Y-%m-%d")))
+    # get todays date
+    rain.append(getRain(userId, date.today().strftime("%Y-%m-%d")))
+    return rain
 
 
 ####### RECOMMENDATION #######
