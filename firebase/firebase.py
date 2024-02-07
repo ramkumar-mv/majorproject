@@ -21,7 +21,7 @@ def getN (userId: str, datestamp: str):
     )
     doc = doc_ref.get()
 
-    nitro = None
+    nitro = {}
     if doc.exists:
         nitro_data = doc.to_dict()
         nitro = nitro_data.get("Nitrogen")
@@ -43,7 +43,7 @@ def getP (userId: str, datestamp: str):
     )
     doc = doc_ref.get()
 
-    phos = None
+    phos = {}
     if doc.exists:
         phos_data = doc.to_dict()
         phos = phos_data.get("Phosphorus")
@@ -65,7 +65,7 @@ def getK (userId: str, datestamp: str):
     )
     doc = doc_ref.get()
 
-    pot = None
+    pot = {}
     if doc.exists:
         pot_data = doc.to_dict()
         pot = pot_data.get("Phosphorus")
@@ -87,7 +87,7 @@ def getTempN(userId: str, datestamp: str):
     )
     doc = doc_ref.get()
 
-    temp1 = None
+    temp1 = {}
     if doc.exists:
         temp_data1 = doc.to_dict()
         temp1 = temp_data1.get("Temperature")
@@ -111,7 +111,7 @@ def getHumN(userId: str, datestamp: str):
     )
     doc = doc_ref.get()
 
-    hum1 = None
+    hum1 = {}
     if doc.exists:
         hum_data1 = doc.to_dict()
         hum1 = hum_data1.get("Humidity")
@@ -134,7 +134,7 @@ def getpH(userId: str, datestamp: str):
     )
     doc = doc_ref.get()
 
-    pH = None
+    pH = {}
     if doc.exists:
         pH_data = doc.to_dict()
         pH = pH_data.get("pH")
@@ -157,7 +157,7 @@ def getRain (userId: str, datestamp: str):
     )
     doc = doc_ref.get()
 
-    rain = None
+    rain = {}
     if doc.exists:
         rain_data = doc.to_dict()
         rain = rain_data.get("pH")
@@ -180,7 +180,7 @@ def getTemp(userId: str, datestamp: str):
     )
     doc = doc_ref.get()
 
-    temp = None
+    temp = {}
     if doc.exists:
         temp_data = doc.to_dict()
         temp = temp_data.get("Temperature")
