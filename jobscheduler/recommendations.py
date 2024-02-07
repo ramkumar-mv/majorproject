@@ -42,7 +42,7 @@ def thresholdTransport(userId):
     # give them suggestions
     report += 'We recommend trying to achieve a short commute to work (<55km)! We also recommend reducing the number of leisure trips since this drives up your CO2 emissions significantly.'
 
-    return insertRecommendation(userId, 'transport', report)
+    return insertRecommendation(userId, report)
 
 '''
 def thresholdNPK(userId):
