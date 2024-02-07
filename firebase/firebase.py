@@ -12,25 +12,27 @@ initialize_app(
 
 ####### Nitrogen #######
 def getN(userId: str, datestamp: str):
-    database = firestore.client()
-    doc_ref = (
-        database.collection("userInfo")
-        .document(userId)
-        .collection("nutrientsTotals")
-        .document(datestamp)
-    )
-    doc = doc_ref.get()
-
-    if doc.exists:
-        nitro_data = doc.to_dict()
-        nitro = nitro_data.get("Nitrogen")
-        return nitro
-    else:
+    try:
+        database = firestore.client()
+        doc_ref = (
+            database.collection("userInfo")
+            .document(userId)
+            .collection(datestamp)
+            .document("Nitrogen")
+        )
+        doc = doc_ref.get()
+        
+        if doc.exists:
+            nitro_data = doc.to_dict()
+            nitro = nitro_data.get("value")
+            return nitro
+        else:
+            return None
+    except Exception as e:
         return None
-
+        
 def getNPrevDay(userId: str):
     yesterday = date.today() - timedelta(days=1)
-
     return getN (userId, yesterday.strftime("%Y-%m-%d"))
 
 ####### phosphorus #######
@@ -39,14 +41,14 @@ def getP (userId: str, datestamp: str):
     doc_ref = (
         database.collection("userInfo")
         .document(userId)
-        .collection("nutrientsTotals")
-        .document(datestamp)
+        .collection(datestamp)
+        .document("Phosphorus")
     )
     doc = doc_ref.get()
 
     if doc.exists:
         phos_data = doc.to_dict()
-        phos = phos_data.get("Phosphorus")
+        phos = phos_data.get("value")
         return phos
     else:
         return None
@@ -62,14 +64,14 @@ def getK (userId: str, datestamp: str):
     doc_ref = (
         database.collection("userInfo")
         .document(userId)
-        .collection("nutrientsTotals")
-        .document(datestamp)
+        .collection(datestamp)
+        .document("Potassium")
     )
     doc = doc_ref.get()
 
     if doc.exists:
         pot_data = doc.to_dict()
-        pot = pot_data.get("Phosphorus")
+        pot = pot_data.get("value")
         return pot
     else:
         return None
@@ -85,14 +87,14 @@ def getTempN(userId: str, datestamp: str):
     doc_ref = (
         database.collection("userInfo")
         .document(userId)
-        .collection("nutrientsTotals")
-        .document(datestamp)
+        .collection(datestamp)
+        .document("Temperature")
     )
     doc = doc_ref.get()
 
     if doc.exists:
         temp_data1 = doc.to_dict()
-        temp1 = temp_data1.get("Temperature")
+        temp1 = temp_data1.get("value")
         return temp1
     else:
         return None
@@ -109,8 +111,8 @@ def getHumN(userId: str, datestamp: str):
     doc_ref = (
         database.collection("userInfo")
         .document(userId)
-        .collection("nutrientsTotals")
-        .document(datestamp)
+        .collection(datestamp)
+        .document("Humidity")
     )
     doc = doc_ref.get()
 
@@ -132,14 +134,14 @@ def getpH(userId: str, datestamp: str):
     doc_ref = (
         database.collection("userInfo")
         .document(userId)
-        .collection("nutrientsTotals")
-        .document(datestamp)
+        .collection(datestamp)
+        .document("pH")
     )
     doc = doc_ref.get()
 
     if doc.exists:
         pH_data = doc.to_dict()
-        pH = pH_data.get("pH")
+        pH = pH_data.get("value")
         return pH
     else:
         return None
@@ -155,14 +157,14 @@ def getRain (userId: str, datestamp: str):
     doc_ref = (
         database.collection("userInfo")
         .document(userId)
-        .collection("nutrientsTotals")
-        .document(datestamp)
+        .collection(datestamp)
+        .document("Rainfall")
     )
     doc = doc_ref.get()
 
     if doc.exists:
         rain_data = doc.to_dict()
-        rain = rain_data.get("pH")
+        rain = rain_data.get("value")
         return rain
     else:
         return None
