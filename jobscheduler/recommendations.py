@@ -81,9 +81,9 @@ def thresholdNPK(userId):
     # Check for NaN or None values in the data
     if any(v is None or np.isnan(v) for v in [N, P, K, temp, hum, pH, rain]):
         report += "Some input values are missing or NaN. Unable to make prediction."
-        return insertRecommendation(userId, report)'''
+        return insertRecommendation(userId, report)
 
-    '''data = np.array([[92, 40, , temp, hum, pH, rain]])
+    data = np.array([[92, 40, 67, temp, hum, pH, rain]])
 
     with open('capstoneApi/RandomForest.pkl', 'rb') as model_file:
         loaded_model = pickle.load(model_file)
