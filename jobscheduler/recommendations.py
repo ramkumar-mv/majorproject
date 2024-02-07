@@ -39,7 +39,7 @@ def thresholdNPK(userId):
     pH = getpH(userId,t)
     rain = getRain(userId,t)
 
-    data = np.array([[N, P, K, tem, hum, ph, rain]])
+    data = np.array([[N, P, K, temp, hum, ph, rain]])
 
     with open('capstoneApi/RandomForest.pkl', 'rb') as model_file:
         loaded_model = pickle.load(model_file)
