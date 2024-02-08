@@ -24,6 +24,16 @@ def getN(userId: str, datestamp: str):
     doc = doc_ref.get()
     print("doc1:",doc)
 
+    nitrogen = {}
+    if doc.exists:
+        nitrogen = doc.to_dict()
+        nitrogen['date'] = datestamp
+
+    if 'total' not in nitrogen:
+        nitrogen['total'] = 0
+    print("nitrogen",nitrogen)
+    return nitrogen
+
     doc_ref1 = (
         database.collection('userInfo')
         .document(userId)
@@ -34,15 +44,15 @@ def getN(userId: str, datestamp: str):
     print("doc2:",doc1)
     
 
-    nitrogen = {}
-    if doc.exists:
-        nitrogen = doc.to_dict()
-        nitrogen['date'] = datestamp
+    nitrogen1 = {}
+    if doc1.exists:
+        nitrogen1 = doc1.to_dict()
+        nitrogen1['date'] = datestamp
 
-    if 'total' not in nitrogen:
-        nitrogen['total'] = 0
-    print(nitrogen)
-    return nitrogen
+    if 'total' not in nitrogen1:
+        nitrogen1['total'] = 0
+    print("nitrogen1",nitrogen1)
+    return nitrogen1
 
 
 def getNToday(userId: str):
