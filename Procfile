@@ -1,1 +1,1 @@
-web: gunicorn majorproject.wsgi --log-file -
+web: gunicorn capstoneApp:app
