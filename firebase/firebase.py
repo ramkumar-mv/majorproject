@@ -44,6 +44,7 @@ def getN(userId: str, datestamp: str):
     print(nitrogen)
     return nitrogen
 
+
 def getNToday(userId: str):
     return getN(userId, date.today().strftime("%Y-%m-%d"))
 
@@ -101,7 +102,10 @@ def getP (userId: str, datestamp: str):
         phos['total'] = 0
 
     return phos
-
+    
+def getPToday(userId: str):
+    return getP(userId, date.today().strftime("%Y-%m-%d"))
+    
 def getPPrevDay(userId: str):
     yesterday = date.today() - timedelta(days=1)
     return getP (userId, yesterday.strftime("%Y-%m-%d"))
@@ -143,6 +147,9 @@ def getK (userId: str, datestamp: str):
     if 'total' not in potas:
         potas['total'] = 0
     return potas
+
+def getKToday(userId: str):
+    return getK(userId, date.today().strftime("%Y-%m-%d"))
     
 def getKPrevDay(userId: str):
     yesterday = date.today() - timedelta(days=1)
