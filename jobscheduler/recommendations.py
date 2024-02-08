@@ -36,7 +36,7 @@ def thresholdNPK(userId):
     phos_value = data1['Phosphorous']
 
     data2 = getKToday(userId)
-    pot_value = data2['Potassium'])
+    pot_value = data2['Potassium']
 
     data3 = getTempToday(userId)
     temp_value = data3['Temperature']
