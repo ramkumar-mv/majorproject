@@ -4,6 +4,8 @@ from datetime import datetime, timedelta, date
 from firebase_admin import auth
 from firebase.firebase import (
     getNToday,
+    getPToday,
+    getKToday,
     getNPrevWeek,
     getPPrevWeek,
     getKPrevWeek,
