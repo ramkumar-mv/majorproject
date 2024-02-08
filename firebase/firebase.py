@@ -204,6 +204,16 @@ def getTemp(userId: str, datestamp: str):
 
     return temp
 
+def getTempToday(userId: str):
+    current_date = datetime.now()
+    # Check if the day is between 1 and 9
+    if current_date.day < 10:
+        # Use padding for the day
+        formatted_date = current_date.strftime("%Y-%m-%-d")
+        return getTemp(userId, formatted_date)
+    else:
+        return getTemp(userId, date.today().strftime("%Y-%m-%d"))
+
 
 def getTempPrevDay(userId: str):
     yesterday = date.today() - timedelta(days=1)
@@ -253,6 +263,16 @@ def getHum(userId: str, datestamp: str):
 
     return hum
 
+def getHumToday(userId: str):
+    current_date = datetime.now()
+    # Check if the day is between 1 and 9
+    if current_date.day < 10:
+        # Use padding for the day
+        formatted_date = current_date.strftime("%Y-%m-%-d")
+        return getHum(userId, formatted_date)
+    else:
+        return getHum(userId, date.today().strftime("%Y-%m-%d"))
+
 def getHumPrevDay(userId: str):
     yesterday = date.today() - timedelta(days=1)
 
@@ -296,6 +316,16 @@ def getpH(userId: str, datestamp: str):
         pH["total"] = 0
 
     return pH
+
+def getpH(userId: str):
+    current_date = datetime.now()
+    # Check if the day is between 1 and 9
+    if current_date.day < 10:
+        # Use padding for the day
+        formatted_date = current_date.strftime("%Y-%m-%-d")
+        return getpH(userId, formatted_date)
+    else:
+        return getpH(userId, date.today().strftime("%Y-%m-%d"))
 
 def getpHPrevDay(userId: str):
     yesterday = date.today() - timedelta(days=1)
@@ -345,6 +375,17 @@ def getRain (userId: str, datestamp: str):
         rain["total"] = 0
 
     return rain
+
+def getRainToday(userId: str):
+    current_date = datetime.now()
+    # Check if the day is between 1 and 9
+    if current_date.day < 10:
+        # Use padding for the day
+        formatted_date = current_date.strftime("%Y-%m-%-d")
+        return getRain(userId, formatted_date)
+    else:
+        return getRain(userId, date.today().strftime("%Y-%m-%d"))
+        
 def getRainPrevDay(userId: str):
     yesterday = date.today() - timedelta(days=1)
 
