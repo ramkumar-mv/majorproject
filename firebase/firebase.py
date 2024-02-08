@@ -248,7 +248,7 @@ def getHum(userId: str, datestamp: str):
     doc_ref = (
         database.collection("userInfo")
         .document(userId)
-        .collection("humTotals")
+        .collection("humidityTotals")
         .document(datestamp)
     )
     doc = doc_ref.get()
