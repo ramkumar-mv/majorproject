@@ -317,7 +317,7 @@ def getpH(userId: str, datestamp: str):
 
     return pH
 
-def getpH(userId: str):
+def getpHToday(userId: str):
     current_date = datetime.now()
     # Check if the day is between 1 and 9
     if current_date.day < 10:
