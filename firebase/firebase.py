@@ -19,7 +19,7 @@ def getN(userId: str, datestamp: str):
         database.collection('userInfo')
         .document(userId)
         .collection('nitrogenTotals')
-        .document("2024-02-8")
+        .document(datestamp)
     )
     doc = doc_ref.get()
     print("doc1:",doc)
@@ -34,29 +34,16 @@ def getN(userId: str, datestamp: str):
     print("nitrogen",nitrogen)
     return nitrogen
 
-    doc_ref1 = (
-        database.collection('userInfo')
-        .document(userId)
-        .collection('nitrogenTotals')
-        .document("2024-02-08")
-    )
-    doc1 = doc_ref1.get()
-    print("doc2:",doc1)
-    
-
-    nitrogen1 = {}
-    if doc1.exists:
-        nitrogen1 = doc1.to_dict()
-        nitrogen1['date'] = datestamp
-
-    if 'total' not in nitrogen1:
-        nitrogen1['total'] = 0
-    print("nitrogen1",nitrogen1)
-    return nitrogen1
-
 
 def getNToday(userId: str):
-    return getN(userId, date.today().strftime("%Y-%m-%d"))
+    current_date = datetime.now()
+    # Check if the day is between 1 and 9
+    if current_date.day < 10:
+        # Use padding for the day
+        formatted_date = current_date.strftime("%Y-%m-%-d")
+        return getN(userId, formatted_date)
+    else:
+        return getN(userId, date.today().strftime("%Y-%m-%d"))
 
 
 def getNPrevDay(userId: str):
@@ -114,7 +101,14 @@ def getP (userId: str, datestamp: str):
     return phos
     
 def getPToday(userId: str):
-    return getP(userId, date.today().strftime("%Y-%m-%d"))
+    current_date = datetime.now()
+    # Check if the day is between 1 and 9
+    if current_date.day < 10:
+        # Use padding for the day
+        formatted_date = current_date.strftime("%Y-%m-%-d")
+        return getP(userId, formatted_date)
+    else:
+        return getP(userId, date.today().strftime("%Y-%m-%d"))
     
 def getPPrevDay(userId: str):
     yesterday = date.today() - timedelta(days=1)
@@ -159,7 +153,14 @@ def getK (userId: str, datestamp: str):
     return potas
 
 def getKToday(userId: str):
-    return getK(userId, date.today().strftime("%Y-%m-%d"))
+    current_date = datetime.now()
+    # Check if the day is between 1 and 9
+    if current_date.day < 10:
+        # Use padding for the day
+        formatted_date = current_date.strftime("%Y-%m-%-d")
+        return getK(userId, formatted_date)
+    else:
+        return getK(userId, date.today().strftime("%Y-%m-%d"))
     
 def getKPrevDay(userId: str):
     yesterday = date.today() - timedelta(days=1)
