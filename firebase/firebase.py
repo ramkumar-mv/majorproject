@@ -31,7 +31,6 @@ def getN(userId: str, datestamp: str):
 
     if 'total' not in nitrogen:
         nitrogen['total'] = 0
-    print("nitrogen",nitrogen)
     return nitrogen
 
 
