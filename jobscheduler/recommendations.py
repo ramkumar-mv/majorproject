@@ -63,7 +63,7 @@ def thresholdNPK(userId):
     #report += f"Predicted crop: {prediction}'''
     
     # Check for NaN or None values in the data
-    if any(v is None or np.isnan(v) for v in [N, P, K, temp, hum, pH, rain]):
+    if any(v is None or np.isnan(v) for v in [nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]):
         report += "Some input values are missing or NaN. Unable to make prediction."
         return insertRecommendation(userId, report)
 
