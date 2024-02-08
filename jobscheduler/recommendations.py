@@ -77,7 +77,7 @@ def thresholdNPK(userId):
         a = nitrogen_value - 79.89
         b = phos_value - 47.58
         c = pot_value - 39.87
-        report ++ f"Today's date {date_value}. "
+        report += f"Today's date {date_value}. "
         report += f"Your Nitrogen value is {nitrogen_value}, the difference between the ideal Nitrogen value for paddy is {a:.2f}. "
         report += f"Your Phosphorous value is {phos_value}, the difference between the ideal Phosphorous value for paddy is {b:.2f}. "
         report += f"Your Potassium value is {pot_value}, the difference between the ideal Potassium value for paddy is {c:.2f}. "
@@ -97,7 +97,7 @@ def thresholdNPK(userId):
             report += "No rain. "
         report += f"We recommend {prediction}"
     else:
-        report ++ f"Today's date {date_value}. "
+        report += f"Today's date {date_value}. "
         report += f"Your Nitrogen value is {nitrogen_value}. "
         report += f"Your Phosphorous value is {phos_value}. "
         report += f"Your Potassium value is {pot_value}. "
