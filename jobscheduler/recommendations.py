@@ -26,16 +26,16 @@ def thresholdNPK(userId):
     report = ""
 
     #t = date.today().strftime("%Y-%m-%d")
-    data = getNPrevWeek(userId)
-    weeklyTotal = sum([d["total"] for d in data])
-    '''
-    data1 = getPPrevWeek(userId)
-    weeklyTotal1 = sum([d["total"] for d in data1])
+    data = getNToday(userId)
+    #weeklyTotal = sum([d["total"] for d in data])
+    
+    data1 = getPToday(userId)
+    #weeklyTotal1 = sum([d["total"] for d in data1])
 
-    data2 = getKPrevWeek(userId)
-    weeklyTotal2 = sum([d["total"] for d in data2])
+    data2 = getKToday(userId)
+    #weeklyTotal2 = sum([d["total"] for d in data2])
 
-    data3 = getTempPrevWeek(userId)
+    '''data3 = getTempPrevWeek(userId)
     weeklyTotal3 = sum([d["total"] for d in data3])
 
     data4 = getHumPrevWeek(userId)
@@ -48,11 +48,11 @@ def thresholdNPK(userId):
     weeklyTotal6 = sum([d["total"] for d in data6])
 
     a = weeklyTotal/7'''
-    report += f"Your Nitrogen value is {weeklyTotal}"
-    '''report += f"Your Phosphorous value is {data1}"
+    report += f"Your Nitrogen value is {data}"
+    report += f"Your Phosphorous value is {data1}"
     report += f"Your Potassium value is {data2}"
-    report += f"The Temperature today is {data3} and the humidity today is {data4}"
-    report += f"The ph level is {data5} and the rainfall level is {data6}"'''
+    #report += f"The Temperature today is {data3} and the humidity today is {data4}"
+    #report += f"The ph level is {data5} and the rainfall level is {data6}"
     #report += f"Predicted crop: {prediction}
     
     '''# Check for NaN or None values in the data
