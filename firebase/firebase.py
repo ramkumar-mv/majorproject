@@ -10,6 +10,26 @@ initialize_app(
     cred, {"databaseURL": "https://majorproject-60694-default-rtdb.firebaseio.com"}
 )
 
+##### Details #######
+
+def getDetails(userId: str):
+    database = firestore.client()
+    doc_ref = database.collection('details').document(userId)
+
+    doc = doc_ref.get()
+
+    area = None
+    region = None
+
+    if doc.exists:
+        details = doc.to_dict()
+
+        area = details.get('Area')
+        region = details.get('Region')
+        print(area, region)
+
+    return area, region
+
 ##### Nitrogen #######
 
 def getN(userId: str, datestamp: str):
