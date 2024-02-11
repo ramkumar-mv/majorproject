@@ -62,9 +62,15 @@ def thresholdPred(userId):
     rain = data6['Rain']
 
     if reg1 == "North":
+        data = np.array([[nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]])
+
+        with open('capstoneApi/RandomForest_North.pkl', 'rb') as model_file:
+            loaded_model = pickle.load(model_file)
+        prediction = loaded_model.predict(data)
+        
         if any(v is None or np.isnan(v) for v in [nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]):
             report += "Some input values are missing or NaN. Unable to make prediction."
-            report += f"We recommend {prediction}"
+            report += f"We recommend {prediction} in north"
             return insertPrediction(userId, report)
 
         data = np.array([[nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]])
@@ -81,9 +87,15 @@ def thresholdPred(userId):
         else:
             pass
     elif reg1 == "South":
+        data = np.array([[nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]])
+
+        with open('capstoneApi/RandomForest_South.pkl', 'rb') as model_file:
+            loaded_model = pickle.load(model_file)
+        prediction = loaded_model.predict(data)
+        
         if any(v is None or np.isnan(v) for v in [nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]):
             report += "Some input values are missing or NaN. Unable to make prediction."
-            report += f"We recommend {prediction}"
+            report += f"We recommend {prediction} in south"
             return insertPrediction(userId, report)
 
         data = np.array([[nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]])
@@ -104,6 +116,12 @@ def thresholdPred(userId):
             pass
 
     elif reg1 == "West":
+        data = np.array([[nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]])
+
+        with open('capstoneApi/RandomForest_West.pkl', 'rb') as model_file:
+            loaded_model = pickle.load(model_file)
+        prediction = loaded_model.predict(data)
+        
         if any(v is None or np.isnan(v) for v in [nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]):
             report += "Some input values are missing or NaN. Unable to make prediction."
             return insertPrediction(userId, report)
@@ -124,15 +142,16 @@ def thresholdPred(userId):
             pass
 
     elif reg1 == "East":
-        if any(v is None or np.isnan(v) for v in [nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]):
-            report += "Some input values are missing or NaN. Unable to make prediction."
-            return insertPrediction(userId, report)
-
         data = np.array([[nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]])
 
         with open('capstoneApi/RandomForest_East.pkl', 'rb') as model_file:
             loaded_model = pickle.load(model_file)
         prediction = loaded_model.predict(data)
+        
+        if any(v is None or np.isnan(v) for v in [nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]):
+            report += "Some input values are missing or NaN. Unable to make prediction."
+            return insertPrediction(userId, report)
+
         
         if prediction not in ['rice', 'wheat', 'cotton']:
             report += "With these NPK and weather conditions you can't grow the desired crop in this field"
@@ -152,7 +171,6 @@ def thresholdPred(userId):
 
 def thresholdNPK(userId):
     report = ""
-
     
     data = getNToday(userId)
     nitrogen_value = data['Nitrogen']
@@ -175,69 +193,32 @@ def thresholdNPK(userId):
 
     data6 = getRainToday(userId)
     rain = data6['Rain']
-
-    '''a = weeklyTotal/7
-    report += f"Your Nitrogen value is {nitrogen_value}. "
-    report += f"Your Phosphorous value is {phos_value}. "
-    report += f"Your Potassium value is {pot_value}. "
-    report += f"The Temperature today is {data3} and the humidity today is {data4}"
-    #report += f"The ph level is {data5} and the rainfall level is {data6}"
-    #report += f"Predicted crop: {prediction}'''
     
-    # Check for NaN or None values in the data
-    if any(v is None or np.isnan(v) for v in [nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]):
-        report += "Some input values are missing or NaN. Unable to make prediction."
-        return insertRecommendation(userId, report)
-
-    data = np.array([[nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]])
-
-    with open('capstoneApi/RandomForest.pkl', 'rb') as model_file:
-        loaded_model = pickle.load(model_file)
+   
+    a = nitrogen_value - 79.89
+    b = phos_value - 47.58
+    c = pot_value - 39.87
     
-    prediction = loaded_model.predict(data)  # Pass the 2D array as input
-    if prediction != 'rice':
-        a = nitrogen_value - 79.89
-        b = phos_value - 47.58
-        c = pot_value - 39.87
-        report += f"Today's date {date_value}. "
-        report += f"Your Nitrogen value is {nitrogen_value}, the difference between the ideal Nitrogen value for paddy is {a:.2f}. "
-        report += f"Your Phosphorous value is {phos_value}, the difference between the ideal Phosphorous value for paddy is {b:.2f}. "
-        report += f"Your Potassium value is {pot_value}, the difference between the ideal Potassium value for paddy is {c:.2f}. "
-        report += f"The Temperature today is {temp_value} and the humidity today is {hum_value}. "
-        report += f"The pH value is {pvalue}. "
-        if pvalue < 7:
-            report += f"The soil is acidic"
-        elif pvalue > 7:
-            report += f"The soil is Alkaline"
-        else:
-            report += f"The soil is neutral"
-        if rain < 300:
-            report += "Heavy rain warning."
-        elif rain <500:
-            report += "Moderate Rain. "
-        else:
-            report += "No rain. "
-        report += f"We recommend {prediction}"
+    report += f"{date_value} : "
+    report += f"Your Nitrogen value is {nitrogen_value}, the difference between the ideal Nitrogen value is {a:.2f}. "
+    report += f"Your Phosphorous value is {phos_value}, the difference between the ideal Phosphorous value is {b:.2f}. "
+    report += f"Your Potassium value is {pot_value}, the difference between the ideal Potassium value is {c:.2f}. "
+    report += f"The Temperature today is {temp_value} and the humidity today is {hum_value}. "
+    report += f"The pH value is {pvalue}. "
+    
+    if pvalue < 7:
+        report += f"The soil is acidic"
+    elif pvalue > 7:
+        report += f"The soil is Alkaline"
     else:
-        report += f"Today's date {date_value}. "
-        report += f"Your Nitrogen value is {nitrogen_value}. "
-        report += f"Your Phosphorous value is {phos_value}. "
-        report += f"Your Potassium value is {pot_value}. "
-        report += f"The Temperature today is {temp_value}. "
-        report += f"The pH value is {pvalue}. "
-        if pvalue < 7:
-            report += f"The soil is acidic"
-        elif pvalue > 7:
-            report += f"The soil is Alkaline"
-        else:
-            report += f"The soil is neutral"
-        if rain < 300:
-            report += "Heavy rain warning."
-        elif rain <500:
-            report += "Moderate Rain. "
-        else:
-            report += "No rain. "
-        report += f"Predicted crop: {prediction}"
+        report += f"The soil is neutral"
+        
+    if rain < 300:
+        report += "Heavy rain warning."
+    elif rain <500:
+        report += "Moderate Rain. "
+    else:
+        report += "No rain. "
 
     return insertRecommendation(userId, report)
 
