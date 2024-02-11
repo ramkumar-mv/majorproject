@@ -29,8 +29,12 @@ def thresholdNPK(userId):
 
     #t = date.today().strftime("%Y-%m-%d")
     area = getArea(userId)
+    reg = area['total']
+    print("area",reg)
     
     region = getRegion(userId)
+    reg1 = region['value']
+    print(reg1)
     '''if region == 1:
         print("North")
     elif region == 2:
@@ -43,6 +47,8 @@ def thresholdNPK(userId):
         pass'''
 
     crop = getCrop(userId)
+    reg2 = crop['value']
+    print(reg2)
     '''if crop == 1:
         print("Rice")
     elif crop == 2:
