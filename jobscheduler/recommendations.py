@@ -30,33 +30,16 @@ def thresholdNPK(userId):
     #t = date.today().strftime("%Y-%m-%d")
     area = getArea(userId)
     reg = area['total']
-    print("area",reg)
+    print(reg)
     
     region = getRegion(userId)
     reg1 = region['value']
     print(reg1)
-    '''if region == 1:
-        print("North")
-    elif region == 2:
-        print("South")
-    elif region == 3:
-        print("West")
-    elif region == 4:
-        print("East")
-    else:
-        pass'''
 
     crop = getCrop(userId)
     reg2 = crop['value']
     print(reg2)
-    '''if crop == 1:
-        print("Rice")
-    elif crop == 2:
-        print("Wheat")
-    elif crop == 3:
-        print("Maize")
-    elif region == 4:
-        print("Cotton")'''
+
     
     data = getNToday(userId)
     nitrogen_value = data['Nitrogen']
