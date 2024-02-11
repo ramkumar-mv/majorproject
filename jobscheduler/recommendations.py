@@ -10,13 +10,9 @@ from firebase.firebase import (
     getHumToday,
     getpHToday,
     getRainToday,
-    getNPrevWeek,
-    getPPrevWeek,
-    getKPrevWeek,
-    getTempPrevWeek,
-    getHumPrevWeek,
-    getpHPrevWeek,
-    getRainPrevWeek,
+    getArea,
+    getRegion,
+    getCrop,
     insertRecommendation,
 )
 
@@ -32,6 +28,30 @@ def thresholdNPK(userId):
     report = ""
 
     #t = date.today().strftime("%Y-%m-%d")
+    area = getArea(userId)
+    
+    region = getRegion(userId)
+    '''if region == 1:
+        print("North")
+    elif region == 2:
+        print("South")
+    elif region == 3:
+        print("West")
+    elif region == 4:
+        print("East")
+    else:
+        pass'''
+
+    crop = getCrop(userId)
+    '''if crop == 1:
+        print("Rice")
+    elif crop == 2:
+        print("Wheat")
+    elif crop == 3:
+        print("Maize")
+    elif region == 4:
+        print("Cotton")'''
+    
     data = getNToday(userId)
     nitrogen_value = data['Nitrogen']
     date_value = data['date']
@@ -119,26 +139,6 @@ def thresholdNPK(userId):
 
     return insertRecommendation(userId, report)
 
-    
-    
-    '''if data > 637000:
-        report += (
-            f"WATER CONSUMPTION: You have crossed {int((weeklyTotal / 637000) * 100)}% of the weekly water consumption limit. Your weekly total is "
-            + str(int(weeklyTotal / 1000))
-            + "kg, which is close to the average Canadian's usage."
-        )
-    elif 509600 < weeklyTotal < 637000:
-        report += (
-            f"WATER CONSUMPTION: You have crossed {int((weeklyTotal / 637000) * 100)}% of the weekly water consumption limit. Your weekly total is "
-            + str(int(weeklyTotal / 1000))
-            + "kg, which is close to the average Canadian's usage."
-        )
-    else:
-        report += (
-            f"WATER CONSUMPTION: Congrats on producing less CO2 than the avg Canadian! The avg Canadian produces 637.00kg a week and you produced "
-            + str(round(weeklyTotal / 1000, 1))
-            + "kg, which is very good."
-        )'''
 
 '''import pickle
 def thresholdHum(userId):
