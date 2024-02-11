@@ -64,7 +64,6 @@ def thresholdPred(userId):
     rain = data6['Rain']
 
     if reg1 == "North":
-        on=50,op=50,ok=50
         if any(v is None or np.isnan(v) for v in [nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]):
         report += "Some input values are missing or NaN. Unable to make prediction."
         return insertPrediction(userId, report)
@@ -83,7 +82,6 @@ def thresholdPred(userId):
         else:
             pass
     elif reg1 == "South":
-        on=50,op=50,ok=50
         if any(v is None or np.isnan(v) for v in [nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]):
         report += "Some input values are missing or NaN. Unable to make prediction."
         return insertPrediction(userId, report)
@@ -106,7 +104,6 @@ def thresholdPred(userId):
             pass
 
     elif reg1 == "West":
-        on=50,op=50,ok=50
         if any(v is None or np.isnan(v) for v in [nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]):
         report += "Some input values are missing or NaN. Unable to make prediction."
         return insertPrediction(userId, report)
@@ -127,7 +124,6 @@ def thresholdPred(userId):
             pass
 
     elif reg1 == "East":
-        on=50,op=50,ok=50
         if any(v is None or np.isnan(v) for v in [nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]):
         report += "Some input values are missing or NaN. Unable to make prediction."
         return insertPrediction(userId, report)
