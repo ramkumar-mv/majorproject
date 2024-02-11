@@ -65,8 +65,8 @@ def thresholdPred(userId):
 
     if reg1 == "North":
         if any(v is None or np.isnan(v) for v in [nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]):
-        report += "Some input values are missing or NaN. Unable to make prediction."
-        return insertPrediction(userId, report)
+            report += "Some input values are missing or NaN. Unable to make prediction."
+            return insertPrediction(userId, report)
 
         data = np.array([[nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]])
 
@@ -83,8 +83,8 @@ def thresholdPred(userId):
             pass
     elif reg1 == "South":
         if any(v is None or np.isnan(v) for v in [nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]):
-        report += "Some input values are missing or NaN. Unable to make prediction."
-        return insertPrediction(userId, report)
+            report += "Some input values are missing or NaN. Unable to make prediction."
+            return insertPrediction(userId, report)
 
         data = np.array([[nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]])
 
@@ -105,8 +105,8 @@ def thresholdPred(userId):
 
     elif reg1 == "West":
         if any(v is None or np.isnan(v) for v in [nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]):
-        report += "Some input values are missing or NaN. Unable to make prediction."
-        return insertPrediction(userId, report)
+            report += "Some input values are missing or NaN. Unable to make prediction."
+            return insertPrediction(userId, report)
 
         data = np.array([[nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]])
 
@@ -125,8 +125,8 @@ def thresholdPred(userId):
 
     elif reg1 == "East":
         if any(v is None or np.isnan(v) for v in [nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]):
-        report += "Some input values are missing or NaN. Unable to make prediction."
-        return insertPrediction(userId, report)
+            report += "Some input values are missing or NaN. Unable to make prediction."
+            return insertPrediction(userId, report)
 
         data = np.array([[nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]])
 
