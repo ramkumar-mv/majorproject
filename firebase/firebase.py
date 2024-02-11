@@ -28,7 +28,8 @@ def getRegion(userId: str):
 
     if 'total' not in region:
         region['total'] = 0
-    print('Region',region)
+    
+    #print('Region',region)
     return region
 
 ##### Area #######
@@ -49,7 +50,7 @@ def getArea(userId: str):
 
     if 'total' not in area:
         area['total'] = 0
-    print('Area',area)
+    #print('Area',area)
     return area
 
 ##### Region #######
@@ -70,7 +71,7 @@ def getCrop(userId: str):
 
     if 'total' not in crop:
         crop['total'] = 0
-    print('crop',crop)
+    #print('crop',crop)
     return crop
 
 
@@ -95,7 +96,7 @@ def getN(userId: str, datestamp: str):
 
     if 'total' not in nitrogen:
         nitrogen['total'] = 0
-    print('Nitrogen', nitrogen)
+    #print('Nitrogen', nitrogen)
     return nitrogen
 
 
