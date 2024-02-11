@@ -27,7 +27,6 @@ def executeRecommendations():
         #thresholdHum(user.uid)
 
 
-
 def thresholdPred(userId):
     report = ""
     area = getArea(userId)
@@ -43,112 +42,81 @@ def thresholdPred(userId):
     print(reg2)
 
     data = getNToday(userId)
-    nitrogen_value = data['Nitrogen']
-    
-    data1 = getPToday(userId)
-    phos_value = data1['Phosphorous']
+    nitrogen_value = data.get('Nitrogen')
+    phos_value = data.get('Phosphorous')
+    pot_value = data.get('Potassium')
 
-    data2 = getKToday(userId)
-    pot_value = data2['Potassium']
+    data1 = getTempToday(userId)
+    temp_value = data1.get('Temperature')
 
-    data3 = getTempToday(userId)
-    temp_value = data3['Temperature']
+    data2 = getHumToday(userId)
+    hum_value = data2.get('Humidity')
 
-    data4 = getHumToday(userId)
-    hum_value = data4['Humidity']
+    data3 = getpHToday(userId)
+    pvalue = data3.get('pH')
 
-    data5 = getpHToday(userId)
-    pvalue = data5['pH']
+    data4 = getRainToday(userId)
+    rain = data4.get('Rain')
 
-    data6 = getRainToday(userId)
-    rain = data6['Rain']
+    valid_regions = {'North', 'South', 'East', 'West'}
+    valid_crops = {'Rice', 'Wheat', 'Maize', 'Cotton'}
 
-    if reg1 == "North":
-        if any(v is None or np.isnan(v) for v in [nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]):
-            report += "Some input values are missing or NaN. Unable to make prediction."
-            return insertPrediction(userId, report)
+    if reg1 not in valid_regions or reg2 not in valid_crops:
+        report += "Invalid region or crop specified."
+        return insertPrediction(userId, report)
 
-        data = np.array([[nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]])
+    if any(v is None or np.isnan(v) for v in [nitrogen_value, phos_value, pot_value, temp_value, hum_value, pvalue, rain]):
+        report += "Some input values are missing or NaN. Unable to make prediction."
+        return insertPrediction(userId, report)
 
+    data = np.array([[nitrogen_value, phos_value, pot_value, temp_value, hum_value, pvalue, rain]])
+
+    try:
         with open('capstoneApi/RandomForest.pkl', 'rb') as model_file:
             loaded_model = pickle.load(model_file)
         prediction = loaded_model.predict(data)
-        if prediction not in ['wheat', 'maize']:
-            report += "With these NPK and weather conditions you can't grow the desired crop in this field"
-        elif prediction == 'wheat':
-            report += "We have also predicited Wheat, Let's go on to the next step"
-        elif prediction == 'maize':
-            report += "We have also predicited Maize, Let's go on to the next step"
-        else:
-            pass
-    elif reg1 == "South":
-        if any(v is None or np.isnan(v) for v in [nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]):
-            report += "Some input values are missing or NaN. Unable to make prediction."
-            report += f"We recommend {prediction}"
-            return insertPrediction(userId, report)
+        report += f"Predicted crop: {prediction}"
 
-        data = np.array([[nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]])
-
-        with open('capstoneApi/RandomForest.pkl', 'rb') as model_file:
-            loaded_model = pickle.load(model_file)
-        prediction = loaded_model.predict(data)
+        if reg1 == "North":
+            if prediction not in ['wheat', 'maize']:
+                report += "With these NPK and weather conditions you can't grow the desired crop in this field"
+            elif prediction == 'wheat':
+                report += "We have also predicted Wheat, Let's go on to the next step"
+            elif prediction == 'maize':
+                report += "We have also predicted Maize, Let's go on to the next step"
         
-        if prediction not in ['rice', 'maize', 'cotton']:
-            report += "With these NPK and weather conditions you can't grow the desired crop in this field"
-        elif prediction == 'rice':
-            report += "We have also predicited Rice, Let's go on to the next step"
-        elif prediction == 'maize':
-            report += "We have also predicited Maize, Let's go on to the next step"
-        elif prediction == 'cotton':
-            report += "We have also predicited Cotton, Let's go on to the next step"
-        else:
-            pass
-
-    elif reg1 == "West":
-        if any(v is None or np.isnan(v) for v in [nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]):
-            report += "Some input values are missing or NaN. Unable to make prediction."
-            return insertPrediction(userId, report)
-
-        data = np.array([[nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]])
-
-        with open('capstoneApi/RandomForest.pkl', 'rb') as model_file:
-            loaded_model = pickle.load(model_file)
-        prediction = loaded_model.predict(data)
+        elif reg1 == "South":
+            if prediction not in ['rice', 'maize', 'cotton']:
+                report += "With these NPK and weather conditions you can't grow the desired crop in this field"
+            elif prediction == 'rice':
+                report += "We have also predicted Rice, Let's go on to the next step"
+            elif prediction == 'maize':
+                report += "We have also predicted Maize, Let's go on to the next step"
+            elif prediction == 'cotton':
+                report += "We have also predicted Cotton, Let's go on to the next step"
         
-        if prediction not in ['rice', 'wheat']:
-            report += "With these NPK and weather conditions you can't grow the desired crop in this field"
-        elif prediction == 'rice':
-            report += "We have also predicited Rice, Let's go on to the next step"
-        elif prediction == 'wheat':
-            report += "We have also predicited Wheat, Let's go on to the next step"
-        else:
-            pass
-
-    elif reg1 == "East":
-        if any(v is None or np.isnan(v) for v in [nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]):
-            report += "Some input values are missing or NaN. Unable to make prediction."
-            return insertPrediction(userId, report)
-
-        data = np.array([[nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]])
-
-        with open('capstoneApi/RandomForest.pkl', 'rb') as model_file:
-            loaded_model = pickle.load(model_file)
-        prediction = loaded_model.predict(data)
+        elif reg1 == "West":
+            if prediction not in ['rice', 'wheat']:
+                report += "With these NPK and weather conditions you can't grow the desired crop in this field"
+            elif prediction == 'rice':
+                report += "We have also predicted Rice, Let's go on to the next step"
+            elif prediction == 'wheat':
+                report += "We have also predicted Wheat, Let's go on to the next step"
         
-        if prediction not in ['rice', 'wheat', 'cotton']:
-            report += "With these NPK and weather conditions you can't grow the desired crop in this field"
-        elif prediction == 'rice':
-            report += "We have also predicited Rice, Let's go on to the next step"
-        elif prediction == 'wheat':
-            report += "We have also predicited Wheat, Let's go on to the next step"
-        elif prediction == 'cotton':
-            report += "We have also predicited Cotton, Let's go on to the next step"
-        else:
-            pass
-    else:
-        pass
+        elif reg1 == "East":
+            if prediction not in ['rice', 'wheat', 'cotton']:
+                report += "With these NPK and weather conditions you can't grow the desired crop in this field"
+            elif prediction == 'rice':
+                report += "We have also predicted Rice, Let's go on to the next step"
+            elif prediction == 'wheat':
+                report += "We have also predicted Wheat, Let's go on to the next step"
+            elif prediction == 'cotton':
+                report += "We have also predicted Cotton, Let's go on to the next step"
+    except Exception as e:
+        report += f"An error occurred: {e}"
 
     return insertPrediction(userId, report)
+
 
 
 def thresholdNPK(userId):
