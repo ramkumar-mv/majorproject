@@ -78,7 +78,7 @@ def thresholdPred(userId):
         elif prediction == 'wheat':
             report += "We have also predicited Wheat, Let's go on to the next step"
         elif prediction == 'maize':
-            report += "We have also predicited Maize, Let's go on to the next step""
+            report += "We have also predicited Maize, Let's go on to the next step"
         else:
             pass
     elif reg1 == "South":
