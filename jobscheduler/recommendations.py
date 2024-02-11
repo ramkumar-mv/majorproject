@@ -69,7 +69,7 @@ def thresholdPred(userId):
 
         data = np.array([[nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]])
 
-        with open('capstoneApi/RandomForest.pkl', 'rb') as model_file:
+        with open('capstoneApi/RandomForest_North.pkl', 'rb') as model_file:
             loaded_model = pickle.load(model_file)
         prediction = loaded_model.predict(data)
         if prediction not in ['wheat', 'maize']:
@@ -88,7 +88,7 @@ def thresholdPred(userId):
 
         data = np.array([[nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]])
 
-        with open('capstoneApi/RandomForest.pkl', 'rb') as model_file:
+        with open('capstoneApi/RandomForest_South.pkl', 'rb') as model_file:
             loaded_model = pickle.load(model_file)
         prediction = loaded_model.predict(data)
         
@@ -110,7 +110,7 @@ def thresholdPred(userId):
 
         data = np.array([[nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]])
 
-        with open('capstoneApi/RandomForest.pkl', 'rb') as model_file:
+        with open('capstoneApi/RandomForest_West.pkl', 'rb') as model_file:
             loaded_model = pickle.load(model_file)
         prediction = loaded_model.predict(data)
         
@@ -130,7 +130,7 @@ def thresholdPred(userId):
 
         data = np.array([[nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]])
 
-        with open('capstoneApi/RandomForest.pkl', 'rb') as model_file:
+        with open('capstoneApi/RandomForest_East.pkl', 'rb') as model_file:
             loaded_model = pickle.load(model_file)
         prediction = loaded_model.predict(data)
         
