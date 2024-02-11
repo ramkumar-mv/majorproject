@@ -10,25 +10,69 @@ initialize_app(
     cred, {"databaseURL": "https://majorproject-60694-default-rtdb.firebaseio.com"}
 )
 
-##### Details #######
+##### Region #######
 
-def getDetails(userId: str):
+def getRegion(userId: str):
     database = firestore.client()
-    doc_ref = database.collection('details').document(userId)
-
+    doc_ref = (
+        database.collection('details')
+        .document(userId)
+        .collection('Totals')
+        .document('regionTotals')
+    )
     doc = doc_ref.get()
 
-    area = None
-    region = None
-
+    region = {}
     if doc.exists:
-        details = doc.to_dict()
+        region = doc.to_dict()
 
-        area = details.get('Area')
-        region = details.get('Region')
-        print(area, region)
+    if 'total' not in region:
+        region['total'] = 0
+    print('Region',region)
+    return region
 
-    return area, region
+##### Area #######
+
+def getArea(userId: str):
+    database = firestore.client()
+    doc_ref = (
+        database.collection('details')
+        .document(userId)
+        .collection('Totals')
+        .document('areaTotals')
+    )
+    doc = doc_ref.get()
+
+    area = {}
+    if doc.exists:
+        area = doc.to_dict()
+
+    if 'total' not in area:
+        area['total'] = 0
+    print('Area',area)
+    return area
+
+##### Region #######
+
+def getCrop(userId: str):
+    database = firestore.client()
+    doc_ref = (
+        database.collection('details')
+        .document(userId)
+        .collection('Totals')
+        .document('cropTotals')
+    )
+    doc = doc_ref.get()
+
+    crop = {}
+    if doc.exists:
+        crop = doc.to_dict()
+
+    if 'total' not in crop:
+        crop['total'] = 0
+    print('crop',crop)
+    return crop
+
 
 ##### Nitrogen #######
 
@@ -51,6 +95,7 @@ def getN(userId: str, datestamp: str):
 
     if 'total' not in nitrogen:
         nitrogen['total'] = 0
+    print('Nitrogen', nitrogen)
     return nitrogen
 
 
