@@ -566,6 +566,33 @@ def insertRecommendation(userId: str, data):
 
     return doc.to_dict()
 
+####### RECOMMENDATION #######
+
+def insertPrediction(userId: str, data):
+    database = firestore.client()
+    doc_ref = database.collection("predictions").document(userId)
+
+    doc = doc_ref.get()
+
+    if doc.exists:
+        doc_data = doc.to_dict()
+        if doc_data is not None and "counter" in doc_data:
+            counter = doc_data["counter"]
+        else:
+            counter = 0
+        doc_ref.update({str(counter): data, "counter": firestore.Increment(1)})
+    else:
+        doc_ref.set(
+            {
+                "0": data,
+                "counter": 1,
+            }
+        )
+
+    doc = doc_ref.get()
+
+    return doc.to_dict()
+
 
 
 """def insertRecommendation(userId: str, data):
