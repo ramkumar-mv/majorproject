@@ -67,11 +67,12 @@ def thresholdPred(userId):
 
     if reg1 == "North":
         data = np.array([[nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]])
-
+    
         with open('capstoneApi/RandomForest_North.pkl', 'rb') as model_file:
             loaded_model = pickle.load(model_file)
         prediction = loaded_model.predict(data)
         print('north',prediction)
+        final = None
         
         if any(v is None or np.isnan(v) for v in [nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]):
             report += "Some input values are missing or NaN. Unable to make prediction."
@@ -129,7 +130,7 @@ def thresholdPred(userId):
             loaded_model = pickle.load(model_file)
         prediction = loaded_model.predict(data)
         print('west',prediction)
-        
+        final = None
         if any(v is None or np.isnan(v) for v in [nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]):
             report += "Some input values are missing or NaN. Unable to make prediction."
             return insertPrediction(userId, report)
@@ -159,7 +160,7 @@ def thresholdPred(userId):
             loaded_model = pickle.load(model_file)
         prediction = loaded_model.predict(data)
         print('east',prediction)
-        
+        final = None
         if any(v is None or np.isnan(v) for v in [nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]):
             report += "Some input values are missing or NaN. Unable to make prediction."
             return insertPrediction(userId, report)
