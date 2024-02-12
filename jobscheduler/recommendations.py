@@ -75,7 +75,7 @@ def thresholdRes(userId):
             report += "Some input values are missing or NaN. Unable to make prediction."
             return insertPrediction(userId, report)
         else:
-            report += f"We have predicted {predicition} for your land. "
+            report += f"We have predicted {prediction} for your land. "
 
     elif reg1 == "South":
         data = np.array([[nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]])
@@ -89,7 +89,7 @@ def thresholdRes(userId):
             report += "Some input values are missing or NaN. Unable to make prediction."
             return insertPrediction(userId, report)
         else:
-            report += f"We have predicted {predicition} for your land. "
+            report += f"We have predicted {prediction} for your land. "
 
     elif reg1 == "West":
         data = np.array([[nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]])
@@ -103,7 +103,7 @@ def thresholdRes(userId):
             report += "Some input values are missing or NaN. Unable to make prediction."
             return insertPrediction(userId, report)
         else:
-            report += f"We have predicted {predicition} for your land. "
+            report += f"We have predicted {prediction} for your land. "
 
     elif reg1 == "East":
         data = np.array([[nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]])
@@ -116,7 +116,7 @@ def thresholdRes(userId):
             report += "Some input values are missing or NaN. Unable to make prediction."
             return insertPrediction(userId, report)
         else:
-            report += f"We have predicted {predicition} for your land. "
+            report += f"We have predicted {prediction} for your land. "
 
     return insertPrediction(userId, report)
 
