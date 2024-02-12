@@ -53,7 +53,7 @@ def getArea(userId: str):
     #print('Area',area)
     return area
 
-##### Region #######
+##### Crop #######
 
 def getCrop(userId: str):
     database = firestore.client()
@@ -71,8 +71,30 @@ def getCrop(userId: str):
 
     if 'total' not in crop:
         crop['total'] = 0
-    #print('crop',crop)
+    print('crop',crop)
     return crop
+
+##### ConfirmCrop #######
+
+def getConfirmCrop(userId: str):
+    database = firestore.client()
+    doc_ref = (
+        database.collection('details')
+        .document(userId)
+        .collection('Totals')
+        .document('cropConfirm')
+    )
+    doc = doc_ref.get()
+
+    cropConfirm = {}
+    if doc.exists:
+        cropConfirm = doc.to_dict()
+
+    if 'total' not in cropConfirm:
+        cropConfirm['total'] = 0
+        
+    print('Confirmed Crop',cropConfirm)
+    return cropConfirm
 
 
 ##### Nitrogen #######
