@@ -77,8 +77,9 @@ def thresholdPred(userId):
             report += "Some input values are missing or NaN. Unable to make prediction."
             return insertPrediction(userId, report)
 
-        if cropConfirm not in ['wheat', 'maize']:
+        if cropConfirm not in ['Wheat', 'Maize']:
             report += "With these NPK and weather conditions you can't grow the desired crop in this field(North)"
+            final = None
         elif cropConfirm == 'wheat' and prediction == 'wheat':
             report += "We have also predicited Wheat, Let's go on to the next step"
             final = 'Wheat'
@@ -141,10 +142,13 @@ def thresholdPred(userId):
         
         if cropConfirm not in ['Rice', 'Wheat']:
             report += "With these NPK and weather conditions you can't grow the desired crop in this field(West)"
+            final = None
         elif prediction == 'rice' and cropConfirm == 'Rice':
             report += "We have also predicited Rice, Let's go on to the next step"
+            final = 'Rice'
         elif cropConfirm == 'Wheat' and prediction == 'wheat':
             report += "We have also predicited Wheat, Let's go on to the next step"
+            final = 'Wheat'
         else:
             pass
 
@@ -163,12 +167,16 @@ def thresholdPred(userId):
         
         if cropConfirm not in ['Rice', 'Wheat', 'Cotton']:
             report += "With these NPK and weather conditions you can't grow the desired crop in this field(East)"
+            final = None
         elif prediction == 'rice' and cropConfirm == 'Rice':
             report += "We have also predicited Rice, Let's go on to the next step"
+            final = 'Rice'
         elif cropConfirm == 'wheat' and prediction == 'Wheat':
             report += "We have also predicited Wheat, Let's go on to the next step"
+            final = 'Wheat'
         elif prediction == 'cotton' and cropConfirm == 'Cotton':
             report += "We have also predicited Cotton, Let's go on to the next step"
+            final = 'Cotton'
         else:
             pass
     else:
@@ -232,7 +240,7 @@ def thresholdNPK(userId):
     
         return insertRecommendation(userId, report)
 
-    elif final == 'wheat':
+    elif final == 'Wheat':
         a = nitrogen_value - 80
         b = phos_value - 40
         c = pot_value - 40
@@ -261,7 +269,7 @@ def thresholdNPK(userId):
     
         return insertRecommendation(userId, report)
 
-    elif final == 'maize':
+    elif final == 'Maize':
         a = nitrogen_value - 120
         b = phos_value - 60
         c = pot_value - 40
@@ -290,7 +298,7 @@ def thresholdNPK(userId):
     
         return insertRecommendation(userId, report)
 
-    elif final == 'cotton':
+    elif final == 'Cotton':
         a = nitrogen_value - 50
         b = phos_value - 30
         c = pot_value - 35
@@ -316,5 +324,8 @@ def thresholdNPK(userId):
             report += "Moderate Rain. \n"
         else:
             report += "No rain \n"
+
+    elif final == None:
+        report += "Prediction Loading..."
 
     return insertRecommendation(userId, report)
