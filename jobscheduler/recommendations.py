@@ -77,12 +77,14 @@ def thresholdPred(userId):
             report += "Some input values are missing or NaN. Unable to make prediction."
             return insertPrediction(userId, report)
 
-        if cropConfirm not in ['Wheat', 'Maize']:
+        if cropConfirm not in ['wheat', 'maize']:
             report += "With these NPK and weather conditions you can't grow the desired crop in this field(North)"
-        elif cropConfirm == 'Wheat' and prediction == 'wheat':
+        elif cropConfirm == 'wheat' and prediction == 'wheat':
             report += "We have also predicited Wheat, Let's go on to the next step"
-        elif prediction == 'maize' and cropConfirm == 'Maize':
+            final = 'Wheat'
+        elif prediction == 'maize' and cropConfirm == 'maize':
             report += "We have also predicited Maize, Let's go on to the next step"
+            final = 'Maize'
         else:
             pass
             
@@ -104,14 +106,18 @@ def thresholdPred(userId):
             loaded_model = pickle.load(model_file)
         prediction = loaded_model.predict(data)
         
-        if cropConfirm not in ['rice', 'maize', 'cotton']:
+        if cropConfirm not in ['Rice', 'Maize', 'Cotton']:
             report += "With these NPK and weather conditions you can't grow the desired crop in this field(South)"
-        elif prediction == 'rice' and cropConfirm == 'rice':
+            final = None
+        elif prediction == 'rice' and cropConfirm == 'Rice':
             report += "We have also predicited Rice, Let's go on to the next step"
-        elif prediction == 'maize' and cropConfirm == 'maize':
+            final = 'Rice'
+        elif prediction == 'maize' and cropConfirm == 'Maize':
             report += "We have also predicited Maize, Let's go on to the next step"
-        elif prediction == 'cotton' and cropConfirm == 'cotton':
+            final = 'Maize'
+        elif prediction == 'cotton' and cropConfirm == 'Cotton':
             report += "We have also predicited Cotton, Let's go on to the next step"
+            final = 'Cotton'
         else:
             pass
 
@@ -133,11 +139,11 @@ def thresholdPred(userId):
             loaded_model = pickle.load(model_file)
         prediction = loaded_model.predict(data)
         
-        if cropConfirm not in ['rice', 'wheat']:
+        if cropConfirm not in ['Rice', 'Wheat']:
             report += "With these NPK and weather conditions you can't grow the desired crop in this field(West)"
-        elif prediction == 'rice' and cropConfirm == 'rice':
+        elif prediction == 'rice' and cropConfirm == 'Rice':
             report += "We have also predicited Rice, Let's go on to the next step"
-        elif cropConfirm == 'wheat' and prediction == 'wheat':
+        elif cropConfirm == 'Wheat' and prediction == 'wheat':
             report += "We have also predicited Wheat, Let's go on to the next step"
         else:
             pass
@@ -155,20 +161,20 @@ def thresholdPred(userId):
             return insertPrediction(userId, report)
 
         
-        if cropConfirm not in ['rice', 'wheat', 'cotton']:
+        if cropConfirm not in ['Rice', 'Wheat', 'Cotton']:
             report += "With these NPK and weather conditions you can't grow the desired crop in this field(East)"
-        elif prediction == 'rice' and cropConfirm == 'rice':
+        elif prediction == 'rice' and cropConfirm == 'Rice':
             report += "We have also predicited Rice, Let's go on to the next step"
-        elif cropConfirm == 'wheat' and prediction == 'wheat':
+        elif cropConfirm == 'wheat' and prediction == 'Wheat':
             report += "We have also predicited Wheat, Let's go on to the next step"
-        elif prediction == 'cotton' and cropConfirm == 'cotton':
+        elif prediction == 'cotton' and cropConfirm == 'Cotton':
             report += "We have also predicited Cotton, Let's go on to the next step"
         else:
             pass
     else:
         pass
 
-    return insertPrediction(userId, report)
+    return final, insertPrediction(userId, report)
 
 def thresholdNPK(userId):
     report = ""
@@ -195,7 +201,7 @@ def thresholdNPK(userId):
     data6 = getRainToday(userId)
     rain = data6['Rain']
 
-    final = 'Rice'
+    final, _ = thresholdPred(userId)
     
     if final == 'Rice':
         a = nitrogen_value - 120
