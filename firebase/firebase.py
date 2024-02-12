@@ -76,7 +76,7 @@ def getCrop(userId: str):
 
 ##### ConfirmCrop #######
 
-def getConfirmCrop(userId: str):
+def getCropConfirm(userId: str):
     database = firestore.client()
     doc_ref = (
         database.collection('details')
