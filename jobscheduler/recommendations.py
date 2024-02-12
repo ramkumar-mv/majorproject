@@ -71,13 +71,14 @@ def thresholdPred(userId):
         with open('capstoneApi/RandomForest_North.pkl', 'rb') as model_file:
             loaded_model = pickle.load(model_file)
         prediction = loaded_model.predict(data)
+        print('north',prediction)
         
         if any(v is None or np.isnan(v) for v in [nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]):
             report += "Some input values are missing or NaN. Unable to make prediction."
             return insertPrediction(userId, report)
 
         if cropConfirm not in ['wheat', 'maize']:
-            report += "With these NPK and weather conditions you can't grow the desired crop in this field"
+            report += "With these NPK and weather conditions you can't grow the desired crop in this field(North)"
         elif cropConfirm == 'wheat' and prediction == 'wheat':
             report += "We have also predicited Wheat, Let's go on to the next step"
         elif prediction == 'maize' and cropConfirm == 'maize':
@@ -91,6 +92,7 @@ def thresholdPred(userId):
         with open('capstoneApi/RandomForest_South.pkl', 'rb') as model_file:
             loaded_model = pickle.load(model_file)
         prediction = loaded_model.predict(data)
+        print('south',prediction)
         
         if any(v is None or np.isnan(v) for v in [nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]):
             report += "Some input values are missing or NaN. Unable to make prediction."
@@ -103,7 +105,7 @@ def thresholdPred(userId):
         prediction = loaded_model.predict(data)
         
         if cropConfirm not in ['rice', 'maize', 'cotton']:
-            report += "With these NPK and weather conditions you can't grow the desired crop in this field"
+            report += "With these NPK and weather conditions you can't grow the desired crop in this field(South)"
         elif prediction == 'rice' and cropConfirm == 'rice':
             report += "We have also predicited Rice, Let's go on to the next step"
         elif prediction == 'maize' and cropConfirm == 'maize':
@@ -119,6 +121,7 @@ def thresholdPred(userId):
         with open('capstoneApi/RandomForest_West.pkl', 'rb') as model_file:
             loaded_model = pickle.load(model_file)
         prediction = loaded_model.predict(data)
+        print('west',prediction)
         
         if any(v is None or np.isnan(v) for v in [nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]):
             report += "Some input values are missing or NaN. Unable to make prediction."
@@ -131,7 +134,7 @@ def thresholdPred(userId):
         prediction = loaded_model.predict(data)
         
         if cropConfirm not in ['rice', 'wheat']:
-            report += "With these NPK and weather conditions you can't grow the desired crop in this field"
+            report += "With these NPK and weather conditions you can't grow the desired crop in this field(West)"
         elif prediction == 'rice' and cropConfirm == 'rice':
             report += "We have also predicited Rice, Let's go on to the next step"
         elif cropConfirm == 'wheat' and prediction == 'wheat':
@@ -145,6 +148,7 @@ def thresholdPred(userId):
         with open('capstoneApi/RandomForest_East.pkl', 'rb') as model_file:
             loaded_model = pickle.load(model_file)
         prediction = loaded_model.predict(data)
+        print('east',prediction)
         
         if any(v is None or np.isnan(v) for v in [nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]):
             report += "Some input values are missing or NaN. Unable to make prediction."
@@ -152,7 +156,7 @@ def thresholdPred(userId):
 
         
         if cropConfirm not in ['rice', 'wheat', 'cotton']:
-            report += "With these NPK and weather conditions you can't grow the desired crop in this field"
+            report += "With these NPK and weather conditions you can't grow the desired crop in this field(East)"
         elif prediction == 'rice' and cropConfirm == 'rice':
             report += "We have also predicited Rice, Let's go on to the next step"
         elif cropConfirm == 'wheat' and prediction == 'wheat':
