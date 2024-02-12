@@ -22,8 +22,8 @@ def executeRecommendations():
     # executing empty sample job
     for user in auth.list_users().iterate_all():
         print(user.uid)
-        thresholdNPK(user.uid)
         thresholdPred(user.uid)
+        thresholdNPK(user.uid)
         #thresholdHum(user.uid)
 
 def thresholdPred(userId):
