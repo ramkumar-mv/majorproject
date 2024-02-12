@@ -77,11 +77,11 @@ def thresholdPred(userId):
             report += "Some input values are missing or NaN. Unable to make prediction."
             return insertPrediction(userId, report)
 
-        if cropConfirm not in ['wheat', 'maize']:
+        if cropConfirm not in ['Wheat', 'Maize']:
             report += "With these NPK and weather conditions you can't grow the desired crop in this field(North)"
-        elif cropConfirm == 'wheat' and prediction == 'wheat':
+        elif cropConfirm == 'Wheat' and prediction == 'wheat':
             report += "We have also predicited Wheat, Let's go on to the next step"
-        elif prediction == 'maize' and cropConfirm == 'maize':
+        elif prediction == 'maize' and cropConfirm == 'Maize':
             report += "We have also predicited Maize, Let's go on to the next step"
         else:
             pass
