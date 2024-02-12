@@ -176,9 +176,9 @@ def thresholdPred(userId):
 
     return final, insertPrediction(userId, report)
 
-
 def thresholdNPK(userId):
     report = ""
+    final = None  # Initialize final variable
     
     data = getNToday(userId)
     nitrogen_value = data['Nitrogen']
@@ -316,94 +316,6 @@ def thresholdNPK(userId):
         elif rain <500:
             report += "Moderate Rain. \n"
         else:
-            report += "No rain. \n"
-    
-        return insertRecommendation(userId, report)
+            report += "No rain \n"
 
-'''import pickle
-def thresholdHum(userId):
-    report = ""
-    # get week of data
-    data = getOilPrevWeek(userId)
-
-    # get total carbon
-    weeklyTotal = sum([d["total"] for d in data])
-
-    # check if more than avg canadian
-    if weeklyTotal > 840000:
-        report += (
-            "OIL CONSUMPTION: Your weekly total is "
-            + str(int(weeklyTotal / 1000))
-            + "kg which is above what the avg Canadian is supposed to produce. here are our suggestions for further tips!.\n"
-        )
-    elif 672000 < weeklyTotal < 840000:
-        report += (
-            "OIL CONSUMPTION: You have crossed 80% of the weekly oil consumption limit. Your weekly total is "
-            + str(int(weeklyTotal / 1000))
-            + "kg, which is close to the average Canadian's usage. Here are some recommendations for reducing your oil consumption.\n"
-        )
-    else:
-        report = (
-            "OIL CONSUMPTION: Congrats on producing less CO2 than the avg Canadian! The avg Canadian produces 840.00kg a week and you produced "
-            + str(round(weeklyTotal / 1000, 1))
-            + "kg."
-        )
-    # give them suggestions
-    with open('capstoneApi/model_hum.pkl', 'rb') as model_file:
-        loaded_model = pickle.load(model_file)
-
-    # Calculate the predicted value for tomorrow
-    input_data = [80]
-    total_oil_consumption = sum(day.get("total", 0) for day in data)
-    prediction = loaded_model.predict(input_data)
-    positive_prediction = [abs(value) for value in prediction]
-    report += f"Today your humidity is {input_data} The predicted value for tomorrow is {positive_prediction[0]:.2f}."
-
-    return insertRecommendation(userId, report)'''
-
-'''def thresholdTemp(userId):
-    report = ""
-    # get week of data
-    data = getTempPrevWeek(userId)
-
-    # get total carbon
-    weeklyTotal = sum([d["total"] for d in data])
-
-    # check if more than avg canadian
-    if data > 637000:
-        report += (
-            f"WATER CONSUMPTION: You have crossed {int((weeklyTotal / 637000) * 100)}% of the weekly water consumption limit. Your weekly total is "
-            + str(int(weeklyTotal / 1000))
-            + "kg, which is close to the average Canadian's usage."
-        )
-    elif 509600 < weeklyTotal < 637000:
-        report += (
-            f"WATER CONSUMPTION: You have crossed {int((weeklyTotal / 637000) * 100)}% of the weekly water consumption limit. Your weekly total is "
-            + str(int(weeklyTotal / 1000))
-            + "kg, which is close to the average Canadian's usage."
-        )
-    else:
-        report += (
-            f"WATER CONSUMPTION: Congrats on producing less CO2 than the avg Canadian! The avg Canadian produces 637.00kg a week and you produced "
-            + str(round(weeklyTotal / 1000, 1))
-            + "kg, which is very good."
-        )'
-    # give them suggestions
-    with open('capstoneApi/model_temp.pkl', 'rb') as model_file:
-        loaded_model = pickle.load(model_file)
-
-    # Calculate the predicted value for tomorrow
-    input_data = [[22]]  # Wrap weeklyTotal in a list to create a 2D array
-    input_data1 = [[73]]
-    total_temp_consumption = sum(day.get("total", 0) for day in data)
-    prediction = loaded_model.predict(input_data)  # Pass the 2D array as input
-    positive_prediction = [abs(value) for value in prediction]
-
-    prediction1 = loaded_model.predict(input_data1)  # Pass the 2D array as input
-    positive_prediction1 = [abs(value) for value in prediction1]
-    report += f"Today your temperature is {22} The predicted temperature for tomorrow is {positive_prediction[0]:.2f} and Today your humidity is {73} The predicted humidity for tomorrow is {prediction1[0]:.2f} ."
-
-    # Give them suggestions
-    #report += "We recommend using water appliances a little less."
-
-    return insertRecommendation(userId, report)'''
+    return insertRecommendation(userId, report)
