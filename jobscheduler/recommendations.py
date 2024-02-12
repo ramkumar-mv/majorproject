@@ -13,10 +13,10 @@ from firebase.firebase import (
     getArea,
     getRegion,
     getCrop,
+    getCropConfirm,
     insertRecommendation,
     insertPrediction,
 )
-
 
 def executeRecommendations():
     # executing empty sample job
@@ -61,6 +61,10 @@ def thresholdPred(userId):
     data6 = getRainToday(userId)
     rain = data6['Rain']
 
+    data7 = getCropConfirm(userId)
+    cropConfirm = data7['value']
+    
+
     if reg1 == "North":
         data = np.array([[nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]])
 
@@ -70,22 +74,19 @@ def thresholdPred(userId):
         
         if any(v is None or np.isnan(v) for v in [nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]):
             report += "Some input values are missing or NaN. Unable to make prediction."
-            report += f"We recommend {prediction} in north"
             return insertPrediction(userId, report)
 
-        data = np.array([[nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]])
-
-        with open('capstoneApi/RandomForest_North.pkl', 'rb') as model_file:
-            loaded_model = pickle.load(model_file)
-        prediction = loaded_model.predict(data)
-        if prediction not in ['wheat', 'maize']:
+        if cropConfirm not in ['wheat', 'maize']:
             report += "With these NPK and weather conditions you can't grow the desired crop in this field"
-        elif prediction == 'wheat':
+        elif cropConfirm == 'wheat' and prediction == 'wheat':
             report += "We have also predicited Wheat, Let's go on to the next step"
-        elif prediction == 'maize':
+            final = 'wheat'
+        elif prediction == 'maize' and cropConfirm == 'maize':
             report += "We have also predicited Maize, Let's go on to the next step"
+            final = 'maize'
         else:
             pass
+            
     elif reg1 == "South":
         data = np.array([[nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]])
 
@@ -95,7 +96,6 @@ def thresholdPred(userId):
         
         if any(v is None or np.isnan(v) for v in [nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]):
             report += "Some input values are missing or NaN. Unable to make prediction."
-            report += f"We recommend {prediction} in south"
             return insertPrediction(userId, report)
 
         data = np.array([[nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]])
@@ -104,14 +104,17 @@ def thresholdPred(userId):
             loaded_model = pickle.load(model_file)
         prediction = loaded_model.predict(data)
         
-        if prediction not in ['rice', 'maize', 'cotton']:
+        if cropConfirm not in ['rice', 'maize', 'cotton']:
             report += "With these NPK and weather conditions you can't grow the desired crop in this field"
-        elif prediction == 'rice':
+        elif prediction == 'rice' and cropConfirm == 'rice':
             report += "We have also predicited Rice, Let's go on to the next step"
-        elif prediction == 'maize':
+            final = 'rice'
+        elif prediction == 'maize' and cropConfirm == 'maize':
             report += "We have also predicited Maize, Let's go on to the next step"
-        elif prediction == 'cotton':
+            final = 'maize'
+        elif prediction == 'cotton' and cropConfirm == 'cotton':
             report += "We have also predicited Cotton, Let's go on to the next step"
+            final = 'cotton'
         else:
             pass
 
@@ -132,12 +135,14 @@ def thresholdPred(userId):
             loaded_model = pickle.load(model_file)
         prediction = loaded_model.predict(data)
         
-        if prediction not in ['rice', 'wheat']:
+        if cropConfirm not in ['rice', 'wheat']:
             report += "With these NPK and weather conditions you can't grow the desired crop in this field"
-        elif prediction == 'rice':
+        elif prediction == 'rice' and cropConfirm == 'rice':
             report += "We have also predicited Rice, Let's go on to the next step"
-        elif prediction == 'wheat':
+            final = 'rice'
+        elif cropConfirm == 'wheat' and prediction == 'wheat':
             report += "We have also predicited Wheat, Let's go on to the next step"
+            final = 'wheat'
         else:
             pass
 
@@ -153,20 +158,23 @@ def thresholdPred(userId):
             return insertPrediction(userId, report)
 
         
-        if prediction not in ['rice', 'wheat', 'cotton']:
+        if cropConfirm not in ['rice', 'wheat', 'cotton']:
             report += "With these NPK and weather conditions you can't grow the desired crop in this field"
-        elif prediction == 'rice':
+        elif prediction == 'rice' and cropConfirm == 'rice':
             report += "We have also predicited Rice, Let's go on to the next step"
-        elif prediction == 'wheat':
+            final = 'rice'
+        elif cropConfirm == 'wheat' and prediction == 'wheat':
             report += "We have also predicited Wheat, Let's go on to the next step"
-        elif prediction == 'cotton':
+            final = 'wheat'
+        elif prediction == 'cotton' and cropConfirm == 'cotton':
             report += "We have also predicited Cotton, Let's go on to the next step"
+            final = 'cotton'
         else:
             pass
     else:
         pass
 
-    return insertPrediction(userId, report)
+    return final, insertPrediction(userId, report)
 
 
 def thresholdNPK(userId):
@@ -193,35 +201,124 @@ def thresholdNPK(userId):
 
     data6 = getRainToday(userId)
     rain = data6['Rain']
-    
-   
-    a = nitrogen_value - 79.89
-    b = phos_value - 47.58
-    c = pot_value - 39.87
-    
-    report += f"{date_value} : "
-    report += f"Your Nitrogen value is {nitrogen_value}, the difference between the ideal Nitrogen value is {a:.2f}. "
-    report += f"Your Phosphorous value is {phos_value}, the difference between the ideal Phosphorous value is {b:.2f}. "
-    report += f"Your Potassium value is {pot_value}, the difference between the ideal Potassium value is {c:.2f}. "
-    report += f"The Temperature today is {temp_value} and the humidity today is {hum_value}. "
-    report += f"The pH value is {pvalue}. "
-    
-    if pvalue < 7:
-        report += f"The soil is acidic"
-    elif pvalue > 7:
-        report += f"The soil is Alkaline"
-    else:
-        report += f"The soil is neutral"
+
+    final, _ = thresholdPred(userId)
+
+    if final == 'Rice':
+        a = nitrogen_value - 120
+        b = phos_value - 30
+        c = pot_value - 30
         
-    if rain < 300:
-        report += "Heavy rain warning."
-    elif rain <500:
-        report += "Moderate Rain. "
-    else:
-        report += "No rain. "
+        report += f"{date_value} : "
+        report += f"Your Nitrogen value is {nitrogen_value}, the difference between the ideal Nitrogen value is {a:.2f}. \n"
+        report += f"Your Phosphorous value is {phos_value}, the difference between the ideal Phosphorous value is {b:.2f}. \n"
+        report += f"Your Potassium value is {pot_value}, the difference between the ideal Potassium value is {c:.2f}. \n"
+        report += f"The Temperature today is {temp_value} and the humidity today is {hum_value}. \n"
+        report += f"The pH value is {pvalue}. \n"
+        report += "You have to use DAP for this amount and MOP for this amount. \n"
+        
+        if pvalue < 7:
+            report += f"The soil is acidic. \n"
+        elif pvalue > 7:
+            report += f"The soil is Alkaline. \n"
+        else:
+            report += f"The soil is neutral. \n"
+            
+        if rain < 300:
+            report += "Heavy rain warning. \n"
+        elif rain <500:
+            report += "Moderate Rain. \n"
+        else:
+            report += "No rain. \n"
+    
+        return insertRecommendation(userId, report)
 
-    return insertRecommendation(userId, report)
+    elif final == 'wheat':
+        a = nitrogen_value - 80
+        b = phos_value - 40
+        c = pot_value - 40
+        
+        report += f"{date_value} : \n"
+        report += f"Your Nitrogen value is {nitrogen_value}, the difference between the ideal Nitrogen value is {a:.2f}. \n"
+        report += f"Your Phosphorous value is {phos_value}, the difference between the ideal Phosphorous value is {b:.2f}. \n"
+        report += f"Your Potassium value is {pot_value}, the difference between the ideal Potassium value is {c:.2f}. \n"
+        report += f"The Temperature today is {temp_value} and the humidity today is {hum_value}. \n"
+        report += f"The pH value is {pvalue}. \n"
+        report += "You have to use DAP for this amount and MOP for this amount. \n"
+        
+        if pvalue < 7:
+            report += f"The soil is acidic. \n"
+        elif pvalue > 7:
+            report += f"The soil is Alkaline. \n"
+        else:
+            report += f"The soil is neutral. \n"
+            
+        if rain < 300:
+            report += "Heavy rain warning. \n"
+        elif rain <500:
+            report += "Moderate Rain. \n"
+        else:
+            report += "No rain. \n"
+    
+        return insertRecommendation(userId, report)
 
+    elif final == 'maize':
+        a = nitrogen_value - 120
+        b = phos_value - 60
+        c = pot_value - 40
+        
+        report += f"{date_value} : \n"
+        report += f"Your Nitrogen value is {nitrogen_value}, the difference between the ideal Nitrogen value is {a:.2f}. \n"
+        report += f"Your Phosphorous value is {phos_value}, the difference between the ideal Phosphorous value is {b:.2f}. \n"
+        report += f"Your Potassium value is {pot_value}, the difference between the ideal Potassium value is {c:.2f}. \n"
+        report += f"The Temperature today is {temp_value} and the humidity today is {hum_value}. \n"
+        report += f"The pH value is {pvalue}. \n"
+        report += "You have to use DAP for this amount and MOP for this amount. \n"
+        
+        if pvalue < 7:
+            report += f"The soil is acidic. \n"
+        elif pvalue > 7:
+            report += f"The soil is Alkaline. \n"
+        else:
+            report += f"The soil is neutral. \n"
+            
+        if rain < 300:
+            report += "Heavy rain warning. \n"
+        elif rain <500:
+            report += "Moderate Rain. \n"
+        else:
+            report += "No rain. \n"
+    
+        return insertRecommendation(userId, report)
+
+    elif final == 'cotton':
+        a = nitrogen_value - 50
+        b = phos_value - 30
+        c = pot_value - 35
+        
+        report += f"{date_value} : \n"
+        report += f"Your Nitrogen value is {nitrogen_value}, the difference between the ideal Nitrogen value is {a:.2f}. \n"
+        report += f"Your Phosphorous value is {phos_value}, the difference between the ideal Phosphorous value is {b:.2f}. \n"
+        report += f"Your Potassium value is {pot_value}, the difference between the ideal Potassium value is {c:.2f}. \n"
+        report += f"The Temperature today is {temp_value} and the humidity today is {hum_value}. \n"
+        report += f"The pH value is {pvalue}. \n"
+        report += "You have to use DAP for this amount and MOP for this amount. \n"
+        
+        if pvalue < 7:
+            report += f"The soil is acidic. \n"
+        elif pvalue > 7:
+            report += f"The soil is Alkaline. \n"
+        else:
+            report += f"The soil is neutral. \n"
+            
+        if rain < 300:
+            report += "Heavy rain warning. \n"
+        elif rain <500:
+            report += "Moderate Rain. \n"
+        else:
+            report += "No rain. \n"
+    
+        return insertRecommendation(userId, report)
 
 '''import pickle
 def thresholdHum(userId):
