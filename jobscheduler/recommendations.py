@@ -70,7 +70,7 @@ def thresholdPred(userId):
 
         with open('capstoneApi/RandomForest_North.pkl', 'rb') as model_file:
             loaded_model = pickle.load(model_file)
-        prediction = loaded_model.predict(data,check_input=False)
+        prediction = loaded_model.predict(data)
         print('north',prediction)
         
         if any(v is None or np.isnan(v) for v in [nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]):
@@ -91,7 +91,7 @@ def thresholdPred(userId):
 
         with open('capstoneApi/RandomForest_South.pkl', 'rb') as model_file:
             loaded_model = pickle.load(model_file)
-        prediction = loaded_model.predict(data,check_input=False)
+        prediction = loaded_model.predict(data)
         print('south',prediction)
         
         if any(v is None or np.isnan(v) for v in [nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]):
@@ -120,7 +120,7 @@ def thresholdPred(userId):
 
         with open('capstoneApi/RandomForest_West.pkl', 'rb') as model_file:
             loaded_model = pickle.load(model_file)
-        prediction = loaded_model.predict(data,check_input=False)
+        prediction = loaded_model.predict(data)
         print('west',prediction)
         
         if any(v is None or np.isnan(v) for v in [nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]):
@@ -147,7 +147,7 @@ def thresholdPred(userId):
 
         with open('capstoneApi/RandomForest_East.pkl', 'rb') as model_file:
             loaded_model = pickle.load(model_file)
-        prediction = loaded_model.predict(data,check_input=False)
+        prediction = loaded_model.predict(data)
         print('east',prediction)
         
         if any(v is None or np.isnan(v) for v in [nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]):
