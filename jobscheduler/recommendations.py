@@ -22,9 +22,103 @@ def executeRecommendations():
     # executing empty sample job
     for user in auth.list_users().iterate_all():
         print(user.uid)
+        thresholdRes(user.uid)
         thresholdPred(user.uid)
         thresholdNPK(user.uid)
         #thresholdHum(user.uid)
+
+def thresholdRes(userId):
+    report = ""
+    area = getArea(userId)
+    reg = area['total']
+    
+    region = getRegion(userId)
+    reg1 = region['value']
+
+    crop = getCrop(userId)
+    reg2 = crop['value']
+
+    data = getNToday(userId)
+    nitrogen_value = data['Nitrogen']
+    
+    data1 = getPToday(userId)
+    phos_value = data1['Phosphorous']
+
+    data2 = getKToday(userId)
+    pot_value = data2['Potassium']
+
+    data3 = getTempToday(userId)
+    temp_value = data3['Temperature']
+
+    data4 = getHumToday(userId)
+    hum_value = data4['Humidity']
+
+    data5 = getpHToday(userId)
+    pvalue = data5['pH']
+
+    data6 = getRainToday(userId)
+    rain = data6['Rain']
+
+    data7 = getCropConfirm(userId)
+    cropConfirm = data7['value']
+    
+
+    if reg1 == "North":
+        data = np.array([[nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]])
+    
+        with open('capstoneApi/RandomForest_North.pkl', 'rb') as model_file:
+            loaded_model = pickle.load(model_file)
+        prediction = loaded_model.predict(data)
+        print('north',prediction)
+        
+        if any(v is None or np.isnan(v) for v in [nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]):
+            report += "Some input values are missing or NaN. Unable to make prediction."
+            return insertPrediction(userId, report)
+        else:
+            report += f"We have predicted {predicition} for your land. "
+
+    elif reg1 == "South":
+        data = np.array([[nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]])
+    
+        with open('capstoneApi/RandomForest_South.pkl', 'rb') as model_file:
+            loaded_model = pickle.load(model_file)
+        prediction = loaded_model.predict(data)
+        print('south',prediction)
+        
+        if any(v is None or np.isnan(v) for v in [nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]):
+            report += "Some input values are missing or NaN. Unable to make prediction."
+            return insertPrediction(userId, report)
+        else:
+            report += f"We have predicted {predicition} for your land. "
+
+    elif reg1 == "West":
+        data = np.array([[nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]])
+
+        with open('capstoneApi/RandomForest_West.pkl', 'rb') as model_file:
+            loaded_model = pickle.load(model_file)
+        prediction = loaded_model.predict(data)
+        print('west',prediction)
+        
+        if any(v is None or np.isnan(v) for v in [nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]):
+            report += "Some input values are missing or NaN. Unable to make prediction."
+            return insertPrediction(userId, report)
+        else:
+            report += f"We have predicted {predicition} for your land. "
+
+    elif reg1 == "East":
+        data = np.array([[nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]])
+
+        with open('capstoneApi/RandomForest_East.pkl', 'rb') as model_file:
+            loaded_model = pickle.load(model_file)
+        prediction = loaded_model.predict(data)
+        print('east',prediction)
+        if any(v is None or np.isnan(v) for v in [nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]):
+            report += "Some input values are missing or NaN. Unable to make prediction."
+            return insertPrediction(userId, report)
+        else:
+            report += f"We have predicted {predicition} for your land. "
+
+    return insertPrediction(userId, report)
 
 def thresholdPred(userId):
     report = ""
@@ -72,7 +166,6 @@ def thresholdPred(userId):
             loaded_model = pickle.load(model_file)
         prediction = loaded_model.predict(data)
         print('north',prediction)
-        final = None
         
         if any(v is None or np.isnan(v) for v in [nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]):
             report += "Some input values are missing or NaN. Unable to make prediction."
@@ -130,16 +223,9 @@ def thresholdPred(userId):
             loaded_model = pickle.load(model_file)
         prediction = loaded_model.predict(data)
         print('west',prediction)
-        final = None
         if any(v is None or np.isnan(v) for v in [nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]):
             report += "Some input values are missing or NaN. Unable to make prediction."
             return insertPrediction(userId, report)
-
-        data = np.array([[nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]])
-
-        with open('capstoneApi/RandomForest_West.pkl', 'rb') as model_file:
-            loaded_model = pickle.load(model_file)
-        prediction = loaded_model.predict(data)
         
         if cropConfirm not in ['Rice', 'Wheat']:
             report += "With these NPK and weather conditions you can't grow the desired crop in this field(West)"
@@ -160,11 +246,9 @@ def thresholdPred(userId):
             loaded_model = pickle.load(model_file)
         prediction = loaded_model.predict(data)
         print('east',prediction)
-        final = None
         if any(v is None or np.isnan(v) for v in [nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]):
             report += "Some input values are missing or NaN. Unable to make prediction."
             return insertPrediction(userId, report)
-
         
         if cropConfirm not in ['Rice', 'Wheat', 'Cotton']:
             report += "With these NPK and weather conditions you can't grow the desired crop in this field(East)"
