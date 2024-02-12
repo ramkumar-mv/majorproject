@@ -102,7 +102,7 @@ def thresholdPred(userId):
 
         with open('capstoneApi/RandomForest_South.pkl', 'rb') as model_file:
             loaded_model = pickle.load(model_file)
-        prediction = loaded_model.predict(data,check_input=False)
+        prediction = loaded_model.predict(data)
         
         if cropConfirm not in ['rice', 'maize', 'cotton']:
             report += "With these NPK and weather conditions you can't grow the desired crop in this field(South)"
