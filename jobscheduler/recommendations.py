@@ -80,10 +80,8 @@ def thresholdPred(userId):
             report += "With these NPK and weather conditions you can't grow the desired crop in this field"
         elif cropConfirm == 'wheat' and prediction == 'wheat':
             report += "We have also predicited Wheat, Let's go on to the next step"
-            final = 'wheat'
         elif prediction == 'maize' and cropConfirm == 'maize':
             report += "We have also predicited Maize, Let's go on to the next step"
-            final = 'maize'
         else:
             pass
             
@@ -108,13 +106,10 @@ def thresholdPred(userId):
             report += "With these NPK and weather conditions you can't grow the desired crop in this field"
         elif prediction == 'rice' and cropConfirm == 'rice':
             report += "We have also predicited Rice, Let's go on to the next step"
-            final = 'rice'
         elif prediction == 'maize' and cropConfirm == 'maize':
             report += "We have also predicited Maize, Let's go on to the next step"
-            final = 'maize'
         elif prediction == 'cotton' and cropConfirm == 'cotton':
             report += "We have also predicited Cotton, Let's go on to the next step"
-            final = 'cotton'
         else:
             pass
 
@@ -139,10 +134,8 @@ def thresholdPred(userId):
             report += "With these NPK and weather conditions you can't grow the desired crop in this field"
         elif prediction == 'rice' and cropConfirm == 'rice':
             report += "We have also predicited Rice, Let's go on to the next step"
-            final = 'rice'
         elif cropConfirm == 'wheat' and prediction == 'wheat':
             report += "We have also predicited Wheat, Let's go on to the next step"
-            final = 'wheat'
         else:
             pass
 
@@ -162,23 +155,19 @@ def thresholdPred(userId):
             report += "With these NPK and weather conditions you can't grow the desired crop in this field"
         elif prediction == 'rice' and cropConfirm == 'rice':
             report += "We have also predicited Rice, Let's go on to the next step"
-            final = 'rice'
         elif cropConfirm == 'wheat' and prediction == 'wheat':
             report += "We have also predicited Wheat, Let's go on to the next step"
-            final = 'wheat'
         elif prediction == 'cotton' and cropConfirm == 'cotton':
             report += "We have also predicited Cotton, Let's go on to the next step"
-            final = 'cotton'
         else:
             pass
     else:
         pass
 
-    return final, insertPrediction(userId, report)
+    return insertPrediction(userId, report)
 
 def thresholdNPK(userId):
     report = ""
-    final = None  # Initialize final variable
     
     data = getNToday(userId)
     nitrogen_value = data['Nitrogen']
@@ -202,8 +191,8 @@ def thresholdNPK(userId):
     data6 = getRainToday(userId)
     rain = data6['Rain']
 
-    final, _ = thresholdPred(userId)
-
+    final = 'Rice'
+    
     if final == 'Rice':
         a = nitrogen_value - 120
         b = phos_value - 30
