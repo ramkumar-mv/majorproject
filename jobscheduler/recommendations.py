@@ -38,14 +38,20 @@ def thresholdValue(userId):
     
     # Define the user ID
     user_id = "3FoNl6M7Yycgx4LUGqt33tVb6Vf2"
+
+    current_date = datetime.now()
+    if current_date.day < 10:
+        formatted_date = current_date.strftime("%Y-%m-%-d")
+    else:
+        formatted_date =  date.today().strftime("%Y-%m-%d"))
     
     # Define the paths to store the data
     paths = {
-        "nitrogen": f"userInfo/{user_id}/nitrogenTotals",
-        "phosp": f"userInfo/{user_id}/phosTotals",
-        "pottasium": f"userInfo/{user_id}/potassiumTotals",
-        "ph": f"userInfo/{user_id}/pHTotals",
-        "rainfall": f"userInfo/{user_id}/rainTotals"
+        "nitrogen": f"userInfo/{user_id}/nitrogenTotals/formatted_date",
+        "phosp": f"userInfo/{user_id}/phosTotals/formatted_date",
+        "pottasium": f"userInfo/{user_id}/potassiumTotals/formatted_date",
+        "ph": f"userInfo/{user_id}/pHTotals/formatted_date",
+        "rainfall": f"userInfo/{user_id}/rainTotals/formatted_date"
     }
     
     # Function to update Firestore
