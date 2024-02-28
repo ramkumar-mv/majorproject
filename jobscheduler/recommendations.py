@@ -47,11 +47,11 @@ def thresholdValue(userId):
     
     # Define the paths to store the data
     paths = {
-        "nitrogen": f"userInfo/{user_id}/nitrogenTotals/formatted_date",
-        "phosp": f"userInfo/{user_id}/phosTotals/formatted_date",
-        "pottasium": f"userInfo/{user_id}/potassiumTotals/formatted_date",
-        "ph": f"userInfo/{user_id}/pHTotals/formatted_date",
-        "rainfall": f"userInfo/{user_id}/rainTotals/formatted_date"
+        "nitrogen": f"userInfo/{user_id}/nitrogenTotals/{formatted_date}",
+        "phosp": f"userInfo/{user_id}/phosTotals/{formatted_date}",
+        "pottasium": f"userInfo/{user_id}/potassiumTotals/{formatted_date}",
+        "ph": f"userInfo/{user_id}/pHTotals/{formatted_date}",
+        "rainfall": f"userInfo/{user_id}/rainTotals/{formatted_date}"
     }
     
     # Function to update Firestore
