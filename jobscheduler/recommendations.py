@@ -62,7 +62,7 @@ def thresholdValue(userId):
             collection, document = paths[key].split('/', 1)
             doc_ref = db.collection(collection).document(document)
             print("reference", doc_ref)
-            doc_ref.set({"value": value})
+            doc_ref.set({"total": value})
         print("Data updated in Firestore.")
     
     # Reference to the Realtime Database
