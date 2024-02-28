@@ -59,6 +59,7 @@ def thresholdValue(userId):
         data = event.data
         for key, value in data.items():
             doc_ref = db.document(paths[key])
+            print("reference",doc_ref)
             doc_ref.set({"value": value})
         print("Data updated in Firestore.")
     
