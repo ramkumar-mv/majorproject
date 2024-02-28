@@ -93,10 +93,10 @@ def thresholdRes(userId):
     pot_value = data2['total']
 
     data3 = getTempToday(userId)
-    temp_value = data3['Temperature']
+    temp_value = data3['total']
 
     data4 = getHumToday(userId)
-    hum_value = data4['Humidity']
+    hum_value = data4['total']
 
     data5 = getpHToday(userId)
     pvalue = data5['total']
@@ -189,10 +189,10 @@ def thresholdPred(userId):
     pot_value = data2['total']
 
     data3 = getTempToday(userId)
-    temp_value = data3['Temperature']
+    temp_value = data3['total']
 
     data4 = getHumToday(userId)
-    hum_value = data4['Humidity']
+    hum_value = data4['total']
 
     data5 = getpHToday(userId)
     pvalue = data5['total']
@@ -328,10 +328,10 @@ def thresholdNPK(userId):
     pot_value = data2['total']
 
     data3 = getTempToday(userId)
-    temp_value = data3['Temperature']
+    temp_value = data3['total']
 
     data4 = getHumToday(userId)
-    hum_value = data4['Humidity']
+    hum_value = data4['total']
 
     data5 = getpHToday(userId)
     pvalue = data5['total']
