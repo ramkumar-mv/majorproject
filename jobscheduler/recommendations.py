@@ -18,6 +18,11 @@ from firebase.firebase import (
     insertPrediction,
 )
 
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import db as firebase_db
+from firebase_admin import firestore
+
 def executeRecommendations():
     # executing empty sample job
     for user in auth.list_users().iterate_all():
@@ -25,7 +30,45 @@ def executeRecommendations():
         thresholdRes(user.uid)
         thresholdPred(user.uid)
         thresholdNPK(user.uid)
+        thresholdValue(user.uid)
         #thresholdHum(user.uid)
+
+def thresholdValue(userId):
+    cred = credentials.Certificate("path/to/serviceAccountKey.json")
+    firebase_admin.initialize_app(cred, {
+        'databaseURL': 'https://majorproject-60694-default-rtdb.firebaseio.com/',
+        'projectId': "majorproject-60694"
+    })
+    
+    db = firestore.client()
+    
+    # Define the user ID
+    user_id = "3FoNl6M7Yycgx4LUGqt33tVb6Vf2"
+    
+    # Define the paths to store the data
+    paths = {
+        "nitrogen": f"/userInfo/{user_id}/nitrogenTotals",
+        "phosp": f"/userInfo/{user_id}/phosTotals",
+        "pottasium": f"/userInfo/{user_id}/potassiumTotals",
+        "ph": f"/userInfo/{user_id}/pHTotals",
+        "rainfall": f"/userInfo/{user_id}/rainTotals"
+    }
+    
+        # Function to update Firestore
+    def update_firestore(event):
+        data = event.data
+        for key, value in data.items():
+            doc_ref = db.document(paths[key])
+            doc_ref.set({"value": value})
+        print("Data updated in Firestore.")
+    
+    # Reference to the Realtime Database
+    ref = firebase_db.reference("/test")
+    
+    # Listen for changes in the Realtime Database
+    ref.listen(update_firestore)
+
+    
 
 def thresholdRes(userId):
     report = ""
