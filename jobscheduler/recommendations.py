@@ -202,7 +202,8 @@ def thresholdPred(userId):
 
     data7 = getCropConfirm(userId)
     cropConfirm = data7['value']
-    
+
+    final = None  # Default value for final
 
     if reg1 == "North":
         data = np.array([[nitrogen_value,phos_value,pot_value, temp_value, hum_value, pvalue, rain]])
@@ -310,7 +311,7 @@ def thresholdPred(userId):
         else:
             pass
     else:
-        pass
+        report += f"Invalid region: {reg1}. Unable to make a prediction."
 
     return final, insertPrediction(userId, report)
 
