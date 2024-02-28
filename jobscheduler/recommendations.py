@@ -41,19 +41,21 @@ def thresholdValue(userId):
     
     # Define the paths to store the data
     paths = {
-        "nitrogen": f"/userInfo/{user_id}/nitrogenTotals",
-        "phosp": f"/userInfo/{user_id}/phosTotals",
-        "pottasium": f"/userInfo/{user_id}/potassiumTotals",
-        "ph": f"/userInfo/{user_id}/pHTotals",
-        "rainfall": f"/userInfo/{user_id}/rainTotals"
+        "nitrogen": f"userInfo/{user_id}/nitrogenTotals",
+        "phosp": f"userInfo/{user_id}/phosTotals",
+        "pottasium": f"userInfo/{user_id}/potassiumTotals",
+        "ph": f"userInfo/{user_id}/pHTotals",
+        "rainfall": f"userInfo/{user_id}/rainTotals"
     }
     
-        # Function to update Firestore
+    # Function to update Firestore
     def update_firestore(event):
         data = event.data
         for key, value in data.items():
-            doc_ref = db.document(paths[key])
-            print("reference",doc_ref)
+            # Construct full path with collection ID and document ID
+            collection, document = paths[key].split('/', 1)
+            doc_ref = db.collection(collection).document(document)
+            print("reference", doc_ref)
             doc_ref.set({"value": value})
         print("Data updated in Firestore.")
     
