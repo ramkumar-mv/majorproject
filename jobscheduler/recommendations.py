@@ -319,14 +319,13 @@ def thresholdNPK(userId):
     report = ""
     
     data = getNToday(userId)
-    nitrogen_value = data['Nitrogen']
-    date_value = data['date']
+    nitrogen_value = data['total']
     
     data1 = getPToday(userId)
-    phos_value = data1['Phosphorous']
+    phos_value = data1['total']
 
     data2 = getKToday(userId)
-    pot_value = data2['Potassium']
+    pot_value = data2['total']
 
     data3 = getTempToday(userId)
     temp_value = data3['Temperature']
@@ -335,10 +334,10 @@ def thresholdNPK(userId):
     hum_value = data4['Humidity']
 
     data5 = getpHToday(userId)
-    pvalue = data5['pH']
+    pvalue = data5['total']
 
     data6 = getRainToday(userId)
-    rain = data6['Rain']
+    rain = data6['total']
 
     final, _ = thresholdPred(userId)
     
