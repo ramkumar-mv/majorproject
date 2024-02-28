@@ -34,7 +34,7 @@ def executeRecommendations():
         #thresholdHum(user.uid)
 
 def thresholdValue(userId):
-    cred = credentials.Certificate("path/to/serviceAccountKey.json")
+    cred = credentials.Certificate("majorproject-60694-firebase-adminsdk-ntugr-075c8c8205.json")
     firebase_admin.initialize_app(cred, {
         'databaseURL': 'https://majorproject-60694-default-rtdb.firebaseio.com/',
         'projectId': "majorproject-60694"
