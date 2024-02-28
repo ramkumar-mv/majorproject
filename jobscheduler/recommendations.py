@@ -27,10 +27,10 @@ def executeRecommendations():
     # executing empty sample job
     for user in auth.list_users().iterate_all():
         print(user.uid)
+        thresholdValue(user.uid)
         thresholdRes(user.uid)
         thresholdPred(user.uid)
         thresholdNPK(user.uid)
-        thresholdValue(user.uid)
         #thresholdHum(user.uid)
 
 def thresholdValue(userId):
@@ -68,7 +68,6 @@ def thresholdValue(userId):
     # Listen for changes in the Realtime Database
     ref.listen(update_firestore)
 
-    
 
 def thresholdRes(userId):
     report = ""
