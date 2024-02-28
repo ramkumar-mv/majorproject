@@ -43,7 +43,7 @@ def thresholdValue(userId):
     if current_date.day < 10:
         formatted_date = current_date.strftime("%Y-%m-%-d")
     else:
-        formatted_date =  date.today().strftime("%Y-%m-%d"))
+        formatted_date =  date.today().strftime("%Y-%m-%d")
     
     # Define the paths to store the data
     paths = {
