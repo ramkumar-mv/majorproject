@@ -344,7 +344,10 @@ def thresholdNPK(userId):
     print(area)
 
     current_date = datetime.now()
-    date_value = current_date.day 
+    if current_date.day < 10:
+        date_value = current_date.strftime("%Y-%m-%-d")
+    else:
+        date_value =  date.today().strftime("%Y-%m-%d")
     
 
     final, _ = thresholdPred(userId)
