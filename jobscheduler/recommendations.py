@@ -343,7 +343,8 @@ def thresholdNPK(userId):
     area = data7['total']
     print(area)
 
-    date_value = datetime.now()
+    current_date = datetime.now()
+    date_value = current_date.day 
     
 
     final, _ = thresholdPred(userId)
