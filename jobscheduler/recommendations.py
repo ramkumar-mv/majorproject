@@ -354,6 +354,8 @@ def thresholdNPK(userId):
         c = pot_value - 30
         d = (b*100)/46
         e = a - d 
+        f = (c*100)/60
+        g = (e*100)/46
         
         report += f"{date_value} : "
         report += f"Your Nitrogen value is {nitrogen_value}, the difference between the ideal Nitrogen value is {a:.2f}. \n"
@@ -361,7 +363,14 @@ def thresholdNPK(userId):
         report += f"Your Potassium value is {pot_value}, the difference between the ideal Potassium value is {c:.2f}. \n"
         report += f"The Temperature today is {temp_value} and the humidity today is {hum_value}. \n"
         report += f"The pH value is {pvalue}. \n"
-        report += f"You have to use Urea for {(e*100)/46} kg/ha and  DAP for {d}  kg/ha and MOP for {(c*100)/60} kg/ha \n"
+        if g >= 0 and d >= 0 and f >= 0:
+            report += f"You have to use Urea for {g:.2f} kg/ha and DAP for {d:.2f} kg/ha and MOP for {f:.2f} kg/ha \n"
+        elif g < 0 and d >= 0 and f >= 0:
+            report += f" Urea is excess already ,You have to use DAP for {d:.2f} kg/ha and MOP for {f:.2f} kg/ha \n"
+        elif d < 0 and g >= 0 and f >= 0:
+            report += f"DAP is excess already ,You have to use Urea for {g:.2f} kg/ha and MOP for {f:.2f} kg/ha \n"
+        elif f < 0 and g >= 0 and d >= 0:
+            report += f"MOP is excess already ,You have to use Urea for {g:.2f} kg/ha and DAP for {d:.2f} kg/ha \n"
         
         if pvalue < 7:
             report += f"The soil is acidic. \n"
@@ -385,6 +394,8 @@ def thresholdNPK(userId):
         c = pot_value - 40
         d = (b*100)/46
         e = a - d 
+        f = (c*100)/60
+        g = (e*100)/46
         
         report += f"{date_value} : \n"
         report += f"Your Nitrogen value is {nitrogen_value}, the difference between the ideal Nitrogen value is {a:.2f}. \n"
@@ -392,8 +403,15 @@ def thresholdNPK(userId):
         report += f"Your Potassium value is {pot_value}, the difference between the ideal Potassium value is {c:.2f}. \n"
         report += f"The Temperature today is {temp_value} and the humidity today is {hum_value}. \n"
         report += f"The pH value is {pvalue}. \n"
-        report += f"You have to use Urea for {(e*100)/46} kg/ha and  DAP for {d}  kg/ha and MOP for {(c*100)/60} kg/ha \n"
-        
+        if g >= 0 and d >= 0 and f >= 0:
+            report += f"You have to use Urea for {g:.2f} kg/ha and DAP for {d:.2f} kg/ha and MOP for {f:.2f} kg/ha \n"
+        elif g < 0 and d >= 0 and f >= 0:
+            report += f" Urea is excess already ,You have to use DAP for {d:.2f} kg/ha and MOP for {f:.2f} kg/ha \n"
+        elif d < 0 and g >= 0 and f >= 0:
+            report += f"DAP is excess already ,You have to use Urea for {g:.2f} kg/ha and MOP for {f:.2f} kg/ha \n"
+        elif f < 0 and g >= 0 and d >= 0:
+            report += f"MOP is excess already ,You have to use Urea for {g:.2f} kg/ha and DAP for {d:.2f} kg/ha \n"
+                
         if pvalue < 7:
             report += f"The soil is acidic. \n"
         elif pvalue > 7:
@@ -416,6 +434,8 @@ def thresholdNPK(userId):
         c = pot_value - 40
         d = (b*100)/46
         e = a - d 
+        f = (c*100)/60
+        g = (e*100)/46
         
         report += f"{date_value} : \n"
         report += f"Your Nitrogen value is {nitrogen_value}, the difference between the ideal Nitrogen value is {a:.2f}. \n"
@@ -423,7 +443,14 @@ def thresholdNPK(userId):
         report += f"Your Potassium value is {pot_value}, the difference between the ideal Potassium value is {c:.2f}. \n"
         report += f"The Temperature today is {temp_value} and the humidity today is {hum_value}. \n"
         report += f"The pH value is {pvalue}. \n"
-        report += f"You have to use Urea for {(e*100)/46} kg/ha and  DAP for {d}  kg/ha and MOP for {(c*100)/60} kg/ha \n"
+        if g >= 0 and d >= 0 and f >= 0:
+            report += f"You have to use Urea for {g:.2f} kg/ha and DAP for {d:.2f} kg/ha and MOP for {f:.2f} kg/ha \n"
+        elif g < 0 and d >= 0 and f >= 0:
+            report += f" Urea is excess already ,You have to use DAP for {d:.2f} kg/ha and MOP for {f:.2f} kg/ha \n"
+        elif d < 0 and g >= 0 and f >= 0:
+            report += f"DAP is excess already ,You have to use Urea for {g:.2f} kg/ha and MOP for {f:.2f} kg/ha \n"
+        elif f < 0 and g >= 0 and d >= 0:
+            report += f"MOP is excess already ,You have to use Urea for {g:.2f} kg/ha and DAP for {d:.2f} kg/ha \n"
         
         if pvalue < 7:
             report += f"The soil is acidic. \n"
@@ -447,6 +474,8 @@ def thresholdNPK(userId):
         c = pot_value - 35
         d = (b*100)/46
         e = a - d 
+        f = (c*100)/60
+        g = (e*100)/46
         
         report += f"{date_value} : \n"
         report += f"Your Nitrogen value is {nitrogen_value}, the difference between the ideal Nitrogen value is {a:.2f}. \n"
@@ -454,7 +483,14 @@ def thresholdNPK(userId):
         report += f"Your Potassium value is {pot_value}, the difference between the ideal Potassium value is {c:.2f}. \n"
         report += f"The Temperature today is {temp_value} and the humidity today is {hum_value}. \n"
         report += f"The pH value is {pvalue}. \n"
-        report += f"You have to use Urea for {(e*100)/46} kg/ha and  DAP for {d}  kg/ha and MOP for {(c*100)/60} kg/ha \n"
+        if g >= 0 and d >= 0 and f >= 0:
+            report += f"You have to use Urea for {g:.2f} kg/ha and DAP for {d:.2f} kg/ha and MOP for {f:.2f} kg/ha \n"
+        elif g < 0 and d >= 0 and f >= 0:
+            report += f" Urea is excess already ,You have to use DAP for {d:.2f} kg/ha and MOP for {f:.2f} kg/ha \n"
+        elif d < 0 and g >= 0 and f >= 0:
+            report += f"DAP is excess already ,You have to use Urea for {g:.2f} kg/ha and MOP for {f:.2f} kg/ha \n"
+        elif f < 0 and g >= 0 and d >= 0:
+            report += f"MOP is excess already ,You have to use Urea for {g:.2f} kg/ha and DAP for {d:.2f} kg/ha \n"
         
         if pvalue < 7:
             report += f"The soil is acidic. \n"
