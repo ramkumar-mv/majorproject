@@ -30,7 +30,7 @@ def getRegion(userId: str):
     if 'total' not in region:
         region['total'] = 0
     
-    #print('Region',region)
+    print('Region',region)
     return region
 
 ##### Area #######
@@ -51,7 +51,7 @@ def getArea(userId: str):
 
     if 'total' not in area:
         area['total'] = 0
-    #print('Area',area)
+    print('Area',area)
     return area
 
 ##### Crop #######
@@ -119,7 +119,7 @@ def getN(userId: str, datestamp: str):
 
     if 'total' not in nitrogen:
         nitrogen['total'] = 0
-    #print('Nitrogen', nitrogen)
+    print('Nitrogen', nitrogen)
     return nitrogen
 
 
@@ -186,6 +186,8 @@ def getP (userId: str, datestamp: str):
     if 'total' not in phos:
         phos['total'] = 0
 
+    print("Phos",phos)
+
     return phos
     
 def getPToday(userId: str):
@@ -238,6 +240,8 @@ def getK (userId: str, datestamp: str):
 
     if 'total' not in potas:
         potas['total'] = 0
+
+    print("Pot", potas)
     return potas
 
 def getKToday(userId: str):
@@ -290,6 +294,8 @@ def getTemp(userId: str, datestamp: str):
 
     if "total" not in temp:
         temp['total'] = 0
+
+    print("Temp",temp)
 
     return temp
 
