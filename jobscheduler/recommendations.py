@@ -339,12 +339,19 @@ def thresholdNPK(userId):
     data6 = getRainToday(userId)
     rain = data6['total']
 
+    data7 = getArea(userId)
+    area = data7['total']
+    print(area)
+    
+
     final, _ = thresholdPred(userId)
     
     if final == 'Rice':
         a = nitrogen_value - 120
         b = phos_value - 30
         c = pot_value - 30
+        d = (b*100)/46
+        e = a - d 
         
         report += f"{date_value} : "
         report += f"Your Nitrogen value is {nitrogen_value}, the difference between the ideal Nitrogen value is {a:.2f}. \n"
@@ -352,7 +359,7 @@ def thresholdNPK(userId):
         report += f"Your Potassium value is {pot_value}, the difference between the ideal Potassium value is {c:.2f}. \n"
         report += f"The Temperature today is {temp_value} and the humidity today is {hum_value}. \n"
         report += f"The pH value is {pvalue}. \n"
-        report += "You have to use DAP for this amount and MOP for this amount. \n"
+        report += f"You have to use Urea for {(e*100)/46} kg/ha and  DAP for {d}  kg/ha and MOP for {(c*100)/60} kg/ha \n"
         
         if pvalue < 7:
             report += f"The soil is acidic. \n"
@@ -374,6 +381,8 @@ def thresholdNPK(userId):
         a = nitrogen_value - 80
         b = phos_value - 40
         c = pot_value - 40
+        d = (b*100)/46
+        e = a - d 
         
         report += f"{date_value} : \n"
         report += f"Your Nitrogen value is {nitrogen_value}, the difference between the ideal Nitrogen value is {a:.2f}. \n"
@@ -381,7 +390,7 @@ def thresholdNPK(userId):
         report += f"Your Potassium value is {pot_value}, the difference between the ideal Potassium value is {c:.2f}. \n"
         report += f"The Temperature today is {temp_value} and the humidity today is {hum_value}. \n"
         report += f"The pH value is {pvalue}. \n"
-        report += "You have to use DAP for this amount and MOP for this amount. \n"
+        report += f"You have to use Urea for {(e*100)/46} kg/ha and  DAP for {d}  kg/ha and MOP for {(c*100)/60} kg/ha \n"
         
         if pvalue < 7:
             report += f"The soil is acidic. \n"
@@ -403,6 +412,8 @@ def thresholdNPK(userId):
         a = nitrogen_value - 120
         b = phos_value - 60
         c = pot_value - 40
+        d = (b*100)/46
+        e = a - d 
         
         report += f"{date_value} : \n"
         report += f"Your Nitrogen value is {nitrogen_value}, the difference between the ideal Nitrogen value is {a:.2f}. \n"
@@ -410,7 +421,7 @@ def thresholdNPK(userId):
         report += f"Your Potassium value is {pot_value}, the difference between the ideal Potassium value is {c:.2f}. \n"
         report += f"The Temperature today is {temp_value} and the humidity today is {hum_value}. \n"
         report += f"The pH value is {pvalue}. \n"
-        report += "You have to use DAP for this amount and MOP for this amount. \n"
+        report += f"You have to use Urea for {(e*100)/46} kg/ha and  DAP for {d}  kg/ha and MOP for {(c*100)/60} kg/ha \n"
         
         if pvalue < 7:
             report += f"The soil is acidic. \n"
@@ -432,6 +443,8 @@ def thresholdNPK(userId):
         a = nitrogen_value - 50
         b = phos_value - 30
         c = pot_value - 35
+        d = (b*100)/46
+        e = a - d 
         
         report += f"{date_value} : \n"
         report += f"Your Nitrogen value is {nitrogen_value}, the difference between the ideal Nitrogen value is {a:.2f}. \n"
@@ -439,7 +452,7 @@ def thresholdNPK(userId):
         report += f"Your Potassium value is {pot_value}, the difference between the ideal Potassium value is {c:.2f}. \n"
         report += f"The Temperature today is {temp_value} and the humidity today is {hum_value}. \n"
         report += f"The pH value is {pvalue}. \n"
-        report += "You have to use DAP for this amount and MOP for this amount. \n"
+        report += f"You have to use Urea for {(e*100)/46} kg/ha and  DAP for {d}  kg/ha and MOP for {(c*100)/60} kg/ha \n"
         
         if pvalue < 7:
             report += f"The soil is acidic. \n"
