@@ -358,10 +358,10 @@ def thresholdNPK(userId):
         g = (e*100)/46
         
         report += f"{date_value} : "
-        report += f"Your Nitrogen value is {nitrogen_value}, the difference between the ideal Nitrogen value is {a:.2f}. \n"
-        report += f"Your Phosphorous value is {phos_value}, the difference between the ideal Phosphorous value is {b:.2f}. \n"
-        report += f"Your Potassium value is {pot_value}, the difference between the ideal Potassium value is {c:.2f}. \n"
-        report += f"The Temperature today is {temp_value} and the humidity today is {hum_value}. \n"
+        report += f"Your Nitrogen value is {nitrogen_value} kg/ha, the difference between the ideal Nitrogen value is {a:.2f} kg/ha. \n"
+        report += f"Your Phosphorous value is {phos_value} kg/ha, the difference between the ideal Phosphorous value is {b:.2f} kg/ha. \n"
+        report += f"Your Potassium value is {pot_value} kg/ha, the difference between the ideal Potassium value is {c:.2f} kg/ha. \n"
+        report += f"The Temperature today is {temp_value} C and the humidity today is {hum_value} %. \n"
         report += f"The pH value is {pvalue}. \n"
         if g >= 0 and d >= 0 and f >= 0:
             report += f"You have to use Urea for {g:.2f} kg/ha and DAP for {d:.2f} kg/ha and MOP for {f:.2f} kg/ha \n"
@@ -398,10 +398,10 @@ def thresholdNPK(userId):
         g = (e*100)/46
         
         report += f"{date_value} : \n"
-        report += f"Your Nitrogen value is {nitrogen_value}, the difference between the ideal Nitrogen value is {a:.2f}. \n"
-        report += f"Your Phosphorous value is {phos_value}, the difference between the ideal Phosphorous value is {b:.2f}. \n"
-        report += f"Your Potassium value is {pot_value}, the difference between the ideal Potassium value is {c:.2f}. \n"
-        report += f"The Temperature today is {temp_value} and the humidity today is {hum_value}. \n"
+        report += f"Your Nitrogen value is {nitrogen_value} kg/ha, the difference between the ideal Nitrogen value is {a:.2f} kg/ha. \n"
+        report += f"Your Phosphorous value is {phos_value} kg/ha, the difference between the ideal Phosphorous value is {b:.2f} kg/ha. \n"
+        report += f"Your Potassium value is {pot_value} kg/ha, the difference between the ideal Potassium value is {c:.2f} kg/ha. \n"
+        report += f"The Temperature today is {temp_value} C and the humidity today is {hum_value} %. \n"
         report += f"The pH value is {pvalue}. \n"
         if g >= 0 and d >= 0 and f >= 0:
             report += f"You have to use Urea for {g:.2f} kg/ha and DAP for {d:.2f} kg/ha and MOP for {f:.2f} kg/ha \n"
@@ -438,10 +438,10 @@ def thresholdNPK(userId):
         g = (e*100)/46
         
         report += f"{date_value} : \n"
-        report += f"Your Nitrogen value is {nitrogen_value}, the difference between the ideal Nitrogen value is {a:.2f}. \n"
-        report += f"Your Phosphorous value is {phos_value}, the difference between the ideal Phosphorous value is {b:.2f}. \n"
-        report += f"Your Potassium value is {pot_value}, the difference between the ideal Potassium value is {c:.2f}. \n"
-        report += f"The Temperature today is {temp_value} and the humidity today is {hum_value}. \n"
+        report += f"Your Nitrogen value is {nitrogen_value} kg/ha, the difference between the ideal Nitrogen value is {a:.2f} kg/ha. \n"
+        report += f"Your Phosphorous value is {phos_value} kg/ha, the difference between the ideal Phosphorous value is {b:.2f} kg/ha. \n"
+        report += f"Your Potassium value is {pot_value} kg/ha, the difference between the ideal Potassium value is {c:.2f} kg/ha. \n"
+        report += f"The Temperature today is {temp_value} C and the humidity today is {hum_value} %. \n"
         report += f"The pH value is {pvalue}. \n"
         if g >= 0 and d >= 0 and f >= 0:
             report += f"You have to use Urea for {g:.2f} kg/ha and DAP for {d:.2f} kg/ha and MOP for {f:.2f} kg/ha \n"
@@ -478,10 +478,10 @@ def thresholdNPK(userId):
         g = (e*100)/46
         
         report += f"{date_value} : \n"
-        report += f"Your Nitrogen value is {nitrogen_value}, the difference between the ideal Nitrogen value is {a:.2f}. \n"
-        report += f"Your Phosphorous value is {phos_value}, the difference between the ideal Phosphorous value is {b:.2f}. \n"
-        report += f"Your Potassium value is {pot_value}, the difference between the ideal Potassium value is {c:.2f}. \n"
-        report += f"The Temperature today is {temp_value} and the humidity today is {hum_value}. \n"
+        report += f"Your Nitrogen value is {nitrogen_value} kg/ha, the difference between the ideal Nitrogen value is {a:.2f} kg/ha. \n"
+        report += f"Your Phosphorous value is {phos_value} kg/ha, the difference between the ideal Phosphorous value is {b:.2f} kg/ha. \n"
+        report += f"Your Potassium value is {pot_value} kg/ha, the difference between the ideal Potassium value is {c:.2f} kg/ha. \n"
+        report += f"The Temperature today is {temp_value} C and the humidity today is {hum_value} %. \n"
         report += f"The pH value is {pvalue}. \n"
         if g >= 0 and d >= 0 and f >= 0:
             report += f"You have to use Urea for {g:.2f} kg/ha and DAP for {d:.2f} kg/ha and MOP for {f:.2f} kg/ha \n"
