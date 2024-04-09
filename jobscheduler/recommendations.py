@@ -103,9 +103,6 @@ def thresholdRes(userId):
 
     data6 = getRainToday(userId)
     rain = data6['total']
-
-    data7 = getCropConfirm(userId)
-    cropConfirm = data7['value']
     
 
     if reg1 == "North":
