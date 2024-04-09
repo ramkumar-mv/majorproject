@@ -37,7 +37,7 @@ def thresholdValue(userId):
     db = firestore.client()
     
     # Define the user ID
-    user_id = "3FoNl6M7Yycgx4LUGqt33tVb6Vf2"
+    user_id = userId
 
     current_date = datetime.now()
     if current_date.day < 10:
