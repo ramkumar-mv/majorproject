@@ -310,6 +310,8 @@ def thresholdPred(userId):
     else:
         report += f"Invalid region: {reg1}. Unable to make a prediction."
 
+    print('final at pred: ',final)
+
     return final, insertPrediction(userId, report)
 
 def thresholdNPK(userId):
@@ -348,6 +350,7 @@ def thresholdNPK(userId):
     
 
     final, _ = thresholdPred(userId)
+    print('final at report: ',final)
     
     if final == 'Rice':
         a = nitrogen_value - 120
